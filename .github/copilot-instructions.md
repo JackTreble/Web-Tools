@@ -1,4 +1,0 @@
-- Always prioritize vanilla JavaScript and ES Modules.
-- Never suggest server-side Node.js solutions; everything must run in a browser.
-- Reference the `.agents/memory/` directory for project state before proposing code.
-- Adhere to the Spec-Kit templates found in `.specify/templates/`.

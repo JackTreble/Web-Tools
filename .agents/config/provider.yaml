@@ -1,15 +1,4 @@
 # Squads Provider Configuration
 # Selected during: squads init
 
-# provider: claude
-
-# GitHub Copilot Model Mapping
-default_engine: github-copilot/claude-3.5-sonnet # Or 'github-copilot/gpt-4o'
-providers:
-  github-copilot:
-    api_base: https://api.githubcopilot.com
-    # Note: You don't usually put the token here; 
-    # gh-aw will pick up your 'GITHUB_TOKEN' from the workflow.
-    models:
-      - claude-3.5-sonnet
-      - gpt-4o
+provider: claude
