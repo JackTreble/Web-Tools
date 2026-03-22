@@ -9,8 +9,7 @@ on:
 permissions:
   contents: read
 
-# Specify the engine here to use Copilot's Claude
-engine: github-copilot/claude-3.5-sonnet
+engine: claude
 
 safe-outputs:
   create-issue:
