@@ -1,0 +1,42 @@
+# web-tools
+
+We create simple in browser local web tools to provide free alternatives to paid tools
+
+## AI Workforce
+
+This project uses [Agents Squads](https://agents-squads.com) — an AI workforce that runs autonomously.
+
+### Squads
+
+| Squad | Purpose |
+|-------|---------|
+| intelligence/ | Monitors trends and competitive signals |
+| research/ | Researches your market, competitors, and opportunities |
+| product/ | Roadmap, specs, user feedback synthesis |
+| company/ | Manages goals, events, and strategy |
+
+### Key Commands
+
+```bash
+# Run a single agent
+squads run research/lead
+
+# See all squads and recent activity
+squads dash
+
+# Check system status
+squads status
+```
+
+## Setup
+
+```bash
+npm install -g squads-cli
+squads init
+```
+
+Edit `.agents/BUSINESS_BRIEF.md` to customize agent context.
+
+---
+
+*Powered by [Agents Squads](https://agents-squads.com)*
