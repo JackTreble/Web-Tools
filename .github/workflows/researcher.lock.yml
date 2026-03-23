@@ -22,7 +22,7 @@
 #
 # Identifies browser-based tool opportunities via AI research.
 #
-# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"34f2d6c5401534affbe719e89bf09bff49cef235cf161dce0df96f84e56747ef","compiler_version":"v0.62.5","strict":true,"agent_id":"claude"}
+# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"5535e956bb10e9400ec35a7b305073e4eafec9930b27f1321ca706c87826e5ad","compiler_version":"v0.62.5","strict":true,"agent_id":"claude"}
 
 name: "Market Research Discovery"
 "on":
@@ -230,6 +230,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      issues: read
+      pull-requests: read
     env:
       DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
       GH_AW_ASSETS_ALLOWED_EXTS: ""

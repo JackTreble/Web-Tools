@@ -1,4 +1,22 @@
 # Squads Provider Configuration
 # Selected during: squads init
 
-provider: claude
+# provider: claude
+
+default_engine: anthropic/claude-3-5-sonnet-20240620
+providers:
+  anthropic:
+    # Use the specific model version often assigned to free tiers
+    # 'latest' can sometimes point to models with higher tier requirements
+    api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+    models:
+      - claude-3-5-sonnet-20240620
+      - claude-3-haiku-20240307
+
+# Optimization for Free Tier Rate Limits
+settings:
+  # Telling the agent to be less 'verbose' to save tokens
+  max_tokens: 4096 
+  temperature: 0.7
+  # If gh-aw supports retry logic, enable it for rate limit (429) errors
+  retry_on_ratelimit: true
