@@ -16,7 +16,7 @@ engine: claude
 
 safe-outputs:
   create-pull-request:
-    allowed-files: [".specify/**/*"]
+    allowed-files: ["specs/**/*"]
   add-comment:
 
 tools:
@@ -59,7 +59,7 @@ Transform the triggering approved issue into a formal Spec-Kit and route it back
     - No server-side logic
     - GitHub Pages compatible
 5. **Raise the Pull Request**
-  - Use `create-pull-request` to open a PR containing only the generated `.specify/**/*` files.
+  - Use `create-pull-request` to open a PR containing only the generated `specs/**/*` files.
   - Use a PR title/body that clearly references the triggering issue.
   - Capture the created PR URL.
 6. **Comment on the Issue with the PR Link**
