@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '.specify/**/tasks.md'
+      - 'specs/**/tasks.md'
 
 permissions:
   contents: read

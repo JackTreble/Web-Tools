@@ -22,7 +22,7 @@
 #
 # Automatically generates the web tool code once a spec is merged.
 #
-# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"e162fe5132de3db531a22d76af309dcdc5b0f3792bb09aa0498431b039147d0a","compiler_version":"v0.63.1","strict":true,"agent_id":"claude"}
+# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"39f0e20ccd348e09f8e98c3683520d9a08d768fd582ee2663d5ff23c102182b7","compiler_version":"v0.63.1","strict":true,"agent_id":"claude"}
 
 name: "Lead Developer: Build"
 "on":
@@ -30,7 +30,7 @@ name: "Lead Developer: Build"
     branches:
     - main
     paths:
-    - .specify/**/tasks.md
+    - specs/**/tasks.md
 
 permissions: {}
 
