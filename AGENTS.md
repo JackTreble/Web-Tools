@@ -1,68 +1,128 @@
 # Agent Instructions
 
-Guidance for AI coding agents working on this project.
+This file is the canonical source of project context and agent guidance for this repository.
 
-## This Project Uses Squads
+## Project Mission
 
-AI agents are organized into squads — domain-aligned teams defined in `.agents/squads/`.
+`web-tools` builds high-quality, open-source, **100% client-side** web tools that serve as free alternatives to paid SaaS products.
 
-```
-.agents/
-├── config/
-│   └── SYSTEM.md            # Rules every agent follows
-├── squads/
-│   └── <squad>/
-│       ├── SQUAD.md          # Squad identity, goals, output format
-│       └── <agent>.md        # Agent definition
-└── memory/
-    └── <squad>/<agent>/      # Persistent state
-```
+Primary domain: `tools.treble.dev`
 
-## Before Starting Work
+## Core Operating Principles
 
-```bash
-squads status                     # See all squads, milestones, open PRs
-squads status <squad>             # Squad detail
-squads memory read <squad>        # What the squad already knows
-```
+- **Privacy First:** User data never leaves the browser. No databases, no sign-ups, no tracking.
+- **Zero-Cloud Footprint:** Tools must be hosted via GitHub Pages and require no backend or server-side logic.
+- **80/20 Value:** Focus on the simple case. Aim for 80% of the value with 20% of the complexity.
+- **Modern Web Standards:** Prefer ES Modules and native Browser APIs such as Canvas, File System, and Web Crypto.
+- **Searchable by Default:** Tools should be easy to find via search, with names and page copy aligned to real user queries.
 
-## During Work
+## Research Focus
 
-- Check for existing PRs, specs, and both open and closed issues before creating new ones
-- Prefer editing existing files over creating new ones
-- Keep changes focused — one task per commit/PR
-- Use `--json` on any squads command for machine-readable output
+Look for browser-first tools currently behind paywalls, cluttered with ads, or requiring unnecessary accounts.
 
-## Research and Proposal Guardrails
+Examples:
+- **Document Processing:** PDF merging, splitting, recoloring, Markdown to PDF, CSV to JSON
+- **Media Utilities:** Client-side image compression, SVG optimization, EXIF stripping
+- **Developer Tools:** Base64 encoders, JWT decoders, cron expression generators
 
-- Review `/specs/**` before proposing a new tool so you do not duplicate active or planned work.
-- Treat closed issues as prior art unless there is a clearly different angle and you can explain why it is still worth proposing.
-- For discovery work, research first, then decide whether any issues should be created.
-- Keep discovery bounded: prefer a small shortlist of strong ideas over broad market scans.
-- In a single research pass, create at most 3 proposal issues and only when the ideas are distinct and high-confidence.
+## Execution Framework
 
-## Usability Expectations
+1. **Intelligence**
+   - Identify a market gap and verify feasibility with Browser APIs only.
+   - Check existing `/specs/**` and both open and closed GitHub issues before treating an idea as new.
+   - Run a short, bounded discovery pass first.
+   - Prefer a small set of high-confidence opportunities over a long list of weak ones.
+2. **Product**
+   - Convert a validated gap into a formal `spec.md` using the Spec-Kit template.
+3. **Engineering**
+   - Implement the tool in a clean `index.html`, `style.css`, and `main.js` structure, or a simpler static structure when appropriate.
+4. **Board (Human)**
+   - Final sign-off before deployment to `tools.treble.dev`.
 
-When proposing or designing a tool, consider whether users need:
+## Decision Heuristics
+
+1. Does this advance the focus on free browser-based alternatives?
+2. Can this be achieved without a server? If not, reject it.
+3. Is there a simpler approach that delivers the core value?
+4. Does this duplicate an existing spec, open issue, or closed issue?
+5. Does the likely UX need basic user controls such as undo, color choice, preview, or quality settings?
+6. Is the tool easy to describe in plain language that matches how users would search for it?
+
+## Strategic Directives
+
+### Mission
+
+Create simple, local browser tools that provide free alternatives to paid tools.
+
+### P0: First Value
+
+All agent work should produce visible, useful output from the first run.
+
+"Useful" means:
+- intelligence produces sourced facts, not generic summaries
+- research identifies specific competitors and opportunities
+- product translates findings into concrete next steps
+- outputs advance the project goals in an actionable way
+
+### Decision Framework
+
+1. Does this advance the research focus?
+2. Is there a simpler approach for 80% of the value?
+3. What is the opportunity cost?
+
+### Constraints
+
+- Produce output first, optimize later.
+- Avoid over-investing in process.
+- Every output should be something a human can use today.
+
+## Technical Standards
+
+- **Language:** HTML5, CSS3, modern JavaScript
+- **Architecture:** ES Modules only. No bundling unless strictly necessary.
+- **Dependencies:** Prefer vanilla solutions. If a library is needed, prefer browser-compatible delivery.
+- **Styling:** Mobile-first design using standard CSS or lightweight browser-friendly approaches.
+
+## Agent Workflow Rules
+
+- **Spec-First:** No major code work before a `spec.md` exists for new features.
+- **Duplicate Check:** Review `/specs/**` plus relevant open and closed GitHub issues before proposing a new tool.
+- **Bounded Discovery:** Prefer short discovery passes and a few validated opportunities.
+- **Issue Volume Control:** A single research pass should create no more than 3 proposal issues, and only for distinct, validated ideas.
+
+## Usability Baseline
+
+When relevant, tools should account for:
 - edit, undo, reset, or clear actions
-- color selection when color affects the output
-- quality or compression controls when fidelity can vary
-- preview before export when transformations are involved
-- safe defaults, clear validation, and recovery from mistakes
+- preview before export
+- color selection when color affects output
+- quality, compression, or resolution settings when fidelity varies
+- clear recovery from invalid input
+- safe defaults for non-technical users
 
-## After Work
+## SEO and Discoverability
 
-- Persist learnings: `squads memory write <squad> "insight"`
-- Update state in `.agents/memory/<squad>/<agent>/state.md`
-- Create GitHub issues for follow-up work
+Every tool published on `tools.treble.dev` should have:
+- a descriptive `<title>`
+- a useful meta description
+- relevant meta tags
+- meaningful headings
+- a clear "How to use" section
+- names and copy that reflect plain-language search intent
 
-## Commands
+## Practical Guidance for Agents
 
-```bash
-squads run <squad/agent>          # Run an agent
-squads status                     # Overview
-squads memory read <squad>        # Recall squad knowledge
-squads memory write <squad> "x"   # Persist a learning
-squads env show <squad> --json    # Execution context
-squads goal list                  # View squad goals
-```
+- Prefer editing existing files over adding new structure.
+- Keep processing inside the browser.
+- Prefer vanilla HTML, CSS, and JavaScript.
+- Avoid backend services, uploads, accounts, OCR services, or server-side PDF processing.
+- If proposing a new tool, mention likely usability controls and likely search phrases.
+
+## Repo Notes
+
+Important project files include:
+- `README.md` for human-facing project overview
+- `instructions.md` for implementation style and UI guidance
+- `/specs/**` for feature planning and prior work
+
+If another agent-specific file exists, it should defer to this file for canonical project guidance.

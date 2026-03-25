@@ -1,42 +1,35 @@
 # web-tools
 
-We create simple in browser local web tools to provide free alternatives to paid tools
+Small, local-first browser utilities published at https://tools.treble.dev.
 
-## AI Workforce
+## Goals
 
-This project uses [Agents Squads](https://agents-squads.com) — an AI workforce that runs autonomously.
+- 100% client-side tools
+- no accounts, tracking, or uploads
+- simple static files that run on GitHub Pages
+- useful pages that are easy to find via search
 
-### Squads
+## Current tools
 
-| Squad | Purpose |
-|-------|---------|
-| intelligence/ | Monitors trends and competitive signals |
-| research/ | Researches your market, competitors, and opportunities |
-| product/ | Roadmap, specs, user feedback synthesis |
-| company/ | Manages goals, events, and strategy |
+- [print-without-black.html](print-without-black.html) — convert PDF blacks to printable color when a black cartridge is empty
+- [pdf-redactor.html](pdf-redactor.html) — permanently redact PDF regions in the browser
 
-### Key Commands
+## Project structure
 
-```bash
-# Run a single agent
-squads run research/lead
+- [index.html](index.html) — landing page for the tool collection
+- [print-without-black.html](print-without-black.html) — standalone tool
+- [pdf-redactor.html](pdf-redactor.html) — PDF redaction tool entry page
+- [tools/pdf-redactor/main.js](tools/pdf-redactor/main.js) — PDF redactor logic
+- [tools/pdf-redactor/style.css](tools/pdf-redactor/style.css) — PDF redactor styles
+- [specs](specs) — feature notes and planning docs that are still useful to keep in-repo
 
-# See all squads and recent activity
-squads dash
+## Working on the site
 
-# Check system status
-squads status
-```
+There is no build step. Open the HTML files directly in a browser or serve the folder as a static site.
 
-## Setup
+When adding tools:
 
-```bash
-npm install -g squads-cli
-squads init
-```
-
-Edit `.agents/BUSINESS_BRIEF.md` to customize agent context.
-
----
-
-*Powered by [Agents Squads](https://agents-squads.com)*
+- keep processing in the browser
+- prefer vanilla HTML, CSS, and JavaScript
+- use descriptive titles, meta descriptions, and clear how-to content
+- include practical controls such as undo, reset, preview, color selection, or quality settings when relevant

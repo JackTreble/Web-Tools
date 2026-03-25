@@ -54,7 +54,7 @@ Transform the triggering approved issue into a formal Spec-Kit and route it back
   - Generate `tasks.md` following `specs/templates/tasks-template.md`
 4. **Validate the Output**
   - Ensure the spec and tasks are grounded in the triggering issue rather than invented scope.
-  - Ensure the spec adheres to the "No-Backend" rule in `.agents/BUSINESS_BRIEF.md`:
+  - Ensure the spec adheres to the "No-Backend" rule in `AGENTS.md`:
     - Browser APIs only (Canvas, File System, Crypto, etc.)
     - No server-side logic
     - GitHub Pages compatible

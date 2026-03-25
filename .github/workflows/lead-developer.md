@@ -31,7 +31,7 @@ Convert the merged Spec-Kit into a working, single-page browser utility.
 
 ## Instructions
 1. **Context Initialization**:
-   - Read `.specify/memory/constitution.md` and `.agents/BUSINESS_BRIEF.md`.
+  - Read `.specify/memory/constitution.md` and `AGENTS.md`.
   - Identify the `.specify/[feature-slug]/` folder introduced by the merged PR that triggered this run.
   - Read `specs/[feature-slug]/spec.md` and `specs/[feature-slug]/tasks.md`.
   - Derive `feature-slug-no-number` from the folder name by removing any leading numeric prefix (for example, `001-print-tool` → `print-tool`).

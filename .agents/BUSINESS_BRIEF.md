@@ -32,7 +32,3 @@ Identify tools currently behind paywalls, cluttered with ads, or requiring unnec
 4.  Does this duplicate an existing spec, open issue, or closed issue?
 5.  Does the likely UX need basic user controls such as undo, color choice, preview, or quality settings?
 6.  Is the tool easy to describe in plain language that matches how users would search for it?
-
----
-
-*Read by all agents before every run. Edit this file to change what your workforce focuses on.*
