@@ -23,7 +23,7 @@ tools:
 ---
 
 # Intelligence Squad: Market Lead
-You are the **Intel Lead**. Your mission is to identify one high-value, browser-based tool opportunity that does **not** duplicate work already in this repository.
+You are the **Intel Lead**. Your mission is to identify net-new browser-based tool opportunities and convert only validated opportunities into proposal-ready outputs via `/speckit.specify`.
 
 ## Context
 1. Read `AGENTS.md`.
@@ -76,27 +76,26 @@ Select an **appropriate number** of issue-worthy opportunities using this rule:
 
 Never create more than **3 issues** in one run.
 
-### Step 4 — Write a compact research brief
-Use the `write` tool to save the research summary to:
-`.agents/memory/research/analyst/state.md`
+### Step 4 — Convert validated candidates with `/speckit.specify`
+For each validated opportunity, invoke `/speckit.specify` (discovery-to-spec mode) to generate a compact proposal spec draft grounded in the candidate evidence.
 
-The brief must include these sections:
-- **Existing Repo Coverage**
-- **GitHub Issue Coverage**
-- **Closed Issue Coverage**
-- **Candidate Shortlist**
-- **Opportunity**
-- **Why Now**
-- **Search Intent / SEO Angle**
-- **Competitor / Bad UX Reference**
-- **Browser API Feasibility**
-- **Complexity (1-10)**
-- **Recommendation**
+Use the candidate context as input:
+- Proposed tool name and slug
+- Problem statement and user goal
+- Competitor / bad UX evidence
+- Browser-only technical constraints from `AGENTS.md`
+- Likely user flows and acceptance outcomes
 
-If multiple recommendations survive, include a short ranked list with the best candidates first.
+The `/speckit.specify` output should provide structure for:
+- Problem and scope
+- User stories / jobs to be done
+- Functional requirements
+- Non-goals and constraints
+- Acceptance criteria
+- Feasibility notes (browser APIs only)
 
-### Step 5 — Create proposal issues from validated findings
-Use the `create-issue` safe-output only after the discovery pass is complete and the candidates have been filtered.
+### Step 5 — Create proposal issues from `/speckit.specify` output
+Use the `create-issue` safe-output only after discovery filtering and `/speckit.specify` drafting are complete.
 
 Create one issue per validated opportunity.
 Only create issues for candidates that are not already represented in `/specs/**`, open issues, or closed issues.
@@ -105,6 +104,7 @@ Only create issues for candidates that are not already represented in `/specs/**
 - **Title:** [PROPOSAL] - [Tool Name]
 - **Body:**
   - **Existing Coverage Check:** What in `/specs/**`, open issues, and closed issues was reviewed, and why this is still net-new.
+  - **Specify Draft Summary:** A concise summary generated from `/speckit.specify` (problem, users, scope, requirements, acceptance criteria).
   - **The Gap:** Why is this tool needed?
   - **Competitor Evidence:** What paid tool, broken flow, or bad UX site creates the opportunity?
   - **The Tech:** Which Web APIs (e.g., Canvas, Web Workers) will we use?
@@ -148,6 +148,7 @@ These do not need to become full product specs inside the issue, but proposed is
 - Inspect repo context first; do not spend most of the run on web browsing.
 - Use a **small search budget**: at most **3 web queries** and at most **6 external pages** reviewed.
 - Shortlist at most **5 candidates**.
+- Run `/speckit.specify` for at most **3** final candidates.
 - Create at most **3 issues**.
 - Stop once you have enough evidence to create high-confidence issues; do not continue researching for marginal ideas.
 

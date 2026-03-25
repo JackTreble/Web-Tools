@@ -5,6 +5,7 @@ const _scriptBase = (function () {
     const src = document.currentScript && document.currentScript.src;
     return src ? new URL('.', src).href : (window.location.origin + '/tools/video-trimmer-gif-exporter/');
 }());
+const _sharedVendorBase = new URL('../../vendor/ffmpeg/', _scriptBase).href;
 
 // ── State ──────────────────────────────────────────────────────────────
 const state = {
@@ -60,7 +61,7 @@ let ffmpeg = null;
 async function initFFmpeg() {
     try {
         if (typeof FFmpegWASM === 'undefined') {
-            throw new Error('FFmpeg library did not load. Check your network connection.');
+            throw new Error('FFmpeg library did not load. Check that the shared vendor assets are present.');
         }
         const { FFmpeg } = FFmpegWASM;
         ffmpeg = new FFmpeg();
@@ -83,8 +84,8 @@ async function initFFmpeg() {
         }, 200);
 
         await ffmpeg.load({
-            coreURL: _scriptBase + 'vendor/ffmpeg-core.js',
-            wasmURL: _scriptBase + 'vendor/ffmpeg-core.wasm',
+            coreURL: _sharedVendorBase + 'ffmpeg-core.js',
+            wasmURL: _sharedVendorBase + 'ffmpeg-core.wasm',
         });
 
         clearInterval(simInterval);

@@ -123,7 +123,7 @@ After setting a trim range, the user selects an output format (GIF, WebP, or MP4
 ## Assumptions
 
 - Users have modern browsers with File API, Canvas API, and video element support (Chrome 90+, Firefox 88+, Safari 15+).
-- The processing engine is loaded from a public CDN; no local build step or package manager is required.
+- The processing engine is loaded from committed local files in the shared `/vendor/ffmpeg/` directory. npm may be used only as a dev-time workflow to pin and refresh those vendored assets.
 - Single-threaded processing mode is used to avoid the need for cross-origin isolation headers, ensuring compatibility with GitHub Pages hosting without custom server configuration.
 - Processing is run off the main thread via a Web Worker to keep the UI responsive during long operations.
 - Audio is preserved in MP4 output but is not present in GIF or WebP output (these formats do not support audio).

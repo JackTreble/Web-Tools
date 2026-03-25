@@ -4,14 +4,14 @@
 (function () {
     'use strict';
 
-    // ── CDN Globals ──────────────────────────────────────────────────────────
+    // ── Shared Vendor Globals ───────────────────────────────────────────────
     const pdfjsLib = window.pdfjsLib;
     if (!pdfjsLib) {
-        console.error('PDF.js failed to load. Check the CDN script tag.');
+        console.error('PDF.js failed to load. Check the local vendor script tag.');
         return;
     }
     pdfjsLib.GlobalWorkerOptions.workerSrc =
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        'vendor/pdfjs/pdf.worker.min.js';
 
     // ── Constants ────────────────────────────────────────────────────────────
     const ZOOM_STEPS     = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0];

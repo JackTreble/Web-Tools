@@ -21,7 +21,7 @@ description: "Task list for Privacy-First Video Trimmer & GIF/WebP Exporter impl
 **Purpose**: Project scaffolding and static file structure
 
 - [ ] T001 Create `tools/video-trimmer/` directory with `index.html`, `main.js`, and `style.css` stubs
-- [ ] T002 [P] Add CDN script tag in `index.html` for FFmpeg.wasm (v0.12, single-threaded build)
+- [ ] T002 [P] Add local vendor script tag in `index.html` for shared `/vendor/ffmpeg/` runtime assets (v0.12, single-threaded build)
 - [ ] T003 [P] Create base HTML layout in `index.html`: drag-drop zone / file input, video element, timeline canvas container, format picker, process button, progress bar, download button
 
 ---

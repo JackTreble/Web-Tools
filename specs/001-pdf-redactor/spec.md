@@ -114,6 +114,6 @@ After marking all sensitive regions across all relevant pages, the user clicks "
 - Users have modern browsers with Canvas API and File API support (Chrome 90+, Firefox 88+, Safari 15+).
 - Password-protected (encrypted) PDFs are out of scope for the initial version.
 - The tool ships as a single `index.html` + `main.js` with no build step, hosted as a static GitHub Pages site.
-- All third-party libraries are loaded from public CDNs; no local bundling or package manager is required.
+- All third-party libraries are loaded from committed local files in the shared `/vendor/` directory. npm may be used only as a dev-time workflow to pin and refresh those vendored assets.
 - Web Workers for background rendering are optional enhancements — the tool must be functional without them, though a loading indicator may be shown for large documents.
 - The tool targets the primary use case of documents up to ~50 pages and ~20MB. Behaviour with extremely large files is best-effort.

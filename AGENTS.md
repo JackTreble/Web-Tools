@@ -80,7 +80,9 @@ All agent work should produce visible, useful output from the first run.
 
 - **Language:** HTML5, CSS3, modern JavaScript
 - **Architecture:** ES Modules only. No bundling unless strictly necessary.
-- **Dependencies:** Prefer vanilla solutions. If a library is needed, prefer browser-compatible delivery.
+- **Tool Entry Pages:** Tool HTML entry files SHOULD live under `/tools/` as `/tools/[tool-name].html`.
+- **Dependencies:** Prefer vanilla solutions. If a library is needed, prefer browser-compatible files committed under the shared `/vendor/` directory.
+- **Dependency Workflow:** Dev-only npm usage is allowed for pinning and refreshing third-party browser packages, but shipped pages must load committed files from `/vendor/`, not CDNs or `node_modules/`.
 - **Styling:** Mobile-first design using standard CSS or lightweight browser-friendly approaches.
 
 ## Agent Workflow Rules
@@ -115,6 +117,8 @@ Every tool published on `tools.treble.dev` should have:
 - Prefer editing existing files over adding new structure.
 - Keep processing inside the browser.
 - Prefer vanilla HTML, CSS, and JavaScript.
+- Place tool pages under `/tools/*.html` and keep tool-specific logic/assets under `/tools/[feature-slug]/`.
+- Reuse shared vendored libraries from `/vendor/` before adding new third-party assets.
 - Avoid backend services, uploads, accounts, OCR services, or server-side PDF processing.
 - If proposing a new tool, mention likely usability controls and likely search phrases.
 
