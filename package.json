@@ -1,0 +1,15 @@
+{
+  "name": "web-tools",
+  "private": true,
+  "scripts": {
+    "vendor:sync": "node scripts/sync-vendor.mjs",
+    "vendor:update": "npm update && npm run vendor:sync"
+  },
+  "devDependencies": {
+    "@ffmpeg/core": "0.12.6",
+    "@ffmpeg/ffmpeg": "0.12.6",
+    "jspdf": "2.5.1",
+    "pdf-lib": "1.17.1",
+    "pdfjs-dist": "3.11.174"
+  }
+}

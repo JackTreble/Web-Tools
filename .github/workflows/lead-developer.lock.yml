@@ -20,9 +20,9 @@
 #
 # For more information: https://github.github.com/gh-aw/introduction/overview/
 #
-# Automatically generates the web tool code once a spec is merged.
+# Implements approved spec tasks into working tool code using Speckit implementation workflow.
 #
-# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"39f0e20ccd348e09f8e98c3683520d9a08d768fd582ee2663d5ff23c102182b7","compiler_version":"v0.63.1","strict":true,"agent_id":"claude"}
+# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"2ba4df73d108beff53cd648f20a79e69e3bc321c96fb004337a4c5aaaa399dff","compiler_version":"v0.63.1","strict":true,"agent_id":"claude"}
 
 name: "Lead Developer: Build"
 "on":
@@ -840,7 +840,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           WORKFLOW_NAME: "Lead Developer: Build"
-          WORKFLOW_DESCRIPTION: "Automatically generates the web tool code once a spec is merged."
+          WORKFLOW_DESCRIPTION: "Implements approved spec tasks into working tool code using Speckit implementation workflow."
           HAS_PATCH: ${{ steps.collect_output.outputs.has_patch }}
         with:
           script: |

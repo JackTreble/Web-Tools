@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-03-25T19:59:05.248Z",
+  "note": "Runtime assets are checked into /vendor. node_modules is development-only and must not be used at runtime.",
+  "packages": {
+    "pdfjs": {
+      "package": "pdfjs-dist",
+      "version": "3.11.174",
+      "files": [
+        "vendor/pdfjs/pdf.min.js",
+        "vendor/pdfjs/pdf.worker.min.js"
+      ]
+    },
+    "pdfLib": {
+      "package": "pdf-lib",
+      "version": "1.17.1",
+      "files": [
+        "vendor/pdf-lib/pdf-lib.min.js"
+      ]
+    },
+    "jspdf": {
+      "package": "jspdf",
+      "version": "2.5.1",
+      "files": [
+        "vendor/jspdf/jspdf.umd.min.js"
+      ]
+    },
+    "ffmpeg": {
+      "package": "@ffmpeg/ffmpeg",
+      "version": "0.12.6",
+      "corePackage": "@ffmpeg/core",
+      "coreVersion": "0.12.6",
+      "files": [
+        "vendor/ffmpeg/ffmpeg.js",
+        "vendor/ffmpeg/ffmpeg-core.js",
+        "vendor/ffmpeg/ffmpeg-core.wasm",
+        "vendor/ffmpeg/814.ffmpeg.js"
+      ]
+    }
+  }
+}

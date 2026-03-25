@@ -21,7 +21,7 @@ description: "Task list for Privacy-First PDF Redactor implementation"
 **Purpose**: Project scaffolding and static file structure
 
 - [ ] T001 Create `tools/pdf-redactor/` directory with `index.html`, `main.js`, and `style.css` stubs
-- [ ] T002 [P] Add CDN script tags in `index.html` for PDF.js (Mozilla CDN) and pdf-lib
+- [ ] T002 [P] Add local vendor script tags in `index.html` for shared `/vendor/pdfjs/` and `/vendor/pdf-lib/` assets
 - [ ] T003 [P] Create base HTML layout in `index.html`: file input, page navigation controls, canvas container, download button
 
 ---
@@ -33,7 +33,7 @@ description: "Task list for Privacy-First PDF Redactor implementation"
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 - [ ] T004 Implement PDF file loading via File API — read local file into an ArrayBuffer in `main.js`
-- [ ] T005 [P] Initialise PDF.js worker configuration using the CDN worker URL in `main.js`
+- [ ] T005 [P] Initialise PDF.js worker configuration using the local `/vendor/pdfjs/pdf.worker.min.js` path in `main.js`
 - [ ] T006 [P] Implement page-indexed redaction rectangle store — an in-memory map of page number → array of `{x, y, width, height}` objects in `main.js`
 - [ ] T007 Implement page navigation state — track current page index and total page count
 - [ ] T008 [P] Add error handling helper — display user-facing error messages for invalid files and load failures
@@ -106,7 +106,7 @@ description: "Task list for Privacy-First PDF Redactor implementation"
 
 **Purpose**: Quality, accessibility, and cross-browser consistency
 
-- [ ] T030 [P] Test in Chrome, Firefox, and Safari — resolve any canvas rendering or CDN compatibility issues
+- [ ] T030 [P] Test in Chrome, Firefox, and Safari — resolve any canvas rendering or local vendor asset compatibility issues
 - [ ] T031 [P] Add responsive CSS layout so the tool is usable on both desktop and tablet viewports in `style.css`
 - [ ] T032 Validate privacy guarantee: run browser DevTools Network audit during a full load → mark → export session and confirm zero outbound file requests
 - [ ] T033 [P] Add `<meta>` description and page title for GitHub Pages discoverability in `index.html`

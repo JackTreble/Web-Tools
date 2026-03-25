@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Without Black Ink | Free Multi-Page PDF Color Converter</title>
+    <meta name="description" content="Stuck with an empty black ink cartridge? Convert your PDF to use only Cyan, Magenta, and Yellow (CMY) ink. Works for images and multi-page documents. 100% free and browser-based.">
+    <meta name="keywords" content="print without black ink, convert black pdf to color, bypass black ink empty, empty black cartridge hack, PDF color mapper">
+    
+    <script src="vendor/pdfjs/pdf.min.js"></script>
+    <script src="vendor/jspdf/jspdf.umd.min.js"></script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "HowTo",
+          "name": "How to print a PDF when you are out of black ink",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "text": "Upload your black and white PDF to the tool."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "Select a dark blue or dark grey color to replace the black ink channel."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "Download the processed PDF and print using the 'Color' setting."
+            }
+          ]
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #004aad;
+            --primary-hover: #003380;
+            --bg: #f8f9fc;
+            --surface: #ffffff;
+            --text: #333;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 { color: var(--primary); margin-top: 0; text-align: center; }
+        .hero-text { text-align: center; color: #555; margin-bottom: 2rem; }
+        .badge { background: #e0f2fe; color: #0284c7; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        label { font-weight: 600; display: block; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        select, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-sizing: border-box;
+            background: white;
+        }
+        .checkbox-group { display: flex; align-items: center; gap: 8px; margin-top: 1rem; }
+        .checkbox-group input { width: auto; margin: 0; }
+        
+        details { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 10px; margin-top: 1rem; }
+        summary { font-weight: 600; cursor: pointer; color: #555; }
+        .advanced-settings { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem; }
+        .warning-text { color: #b91c1c; font-size: 0.85rem; margin-top: 4px; }
+        .help-text { color: #666; font-size: 0.85rem; margin-top: 4px; }
+        
+        .btn-group { display: flex; gap: 10px; margin-top: 1.5rem; }
+        button {
+            flex: 1;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        button:hover { background-color: var(--primary-hover); }
+        button:disabled { background-color: #cbd5e1; cursor: not-allowed; color: #64748b; }
+        #downloadBtn { background-color: #059669; }
+        #downloadBtn:hover { background-color: #047857; }
+        
+        #status { text-align: center; margin-top: 1rem; font-weight: 600; color: #0284c7; }
+        
+        /* Preview Section */
+        .workspace { display: none; margin-top: 2rem; border-top: 2px solid var(--border); padding-top: 2rem; }
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .pagination button { flex: none; padding: 8px 16px; font-size: 0.9rem; width: auto; }
+        
+        .preview-panels { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .panel { flex: 1; min-width: 300px; display: flex; flex-direction: column; align-items: center; }
+        .panel h3 { font-size: 1rem; color: #555; margin-bottom: 0.5rem; }
+        canvas {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🖨️ Print Without Black</h1>
+    <p class="hero-text">
+        Printer refusing to print because the black ink is empty? <br>
+        Convert your PDF to a deep blue to force the printer to use your color cartridges. 
+        <span class="badge">100% Free</span> <span class="badge">Private (Local Browser)</span>
+    </p>
+    
+    <div class="controls-grid">
+        <div>
+            <label for="pdfInput">1. Select your PDF Document</label>
+            <input type="file" id="pdfInput" accept="application/pdf">
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="forceGrayscale" checked>
+                <label for="forceGrayscale" style="margin:0; font-weight: normal;">
+                    Force Monochrome (Convert entire document to target color)
+                </label>
+            </div>
+            <p class="help-text" style="margin-top:4px;">Uncheck this if your PDF has colors you want to keep, and you *only* want to change the black text.</p>
+        </div>
+        
+        <div>
+            <label for="colorSelect">2. Choose Replacement Color</label>
+            <select id="colorSelect">
+                <option value="10,10,100">Deep Indigo (Best overall, uses Cyan + Magenta)</option>
+                <option value="0,100,0">Forest Green (Use if Magenta is empty)</option>
+                <option value="150,0,0">Maroon (Use if Cyan is empty)</option>
+                <option value="100,0,150">Deep Violet (Use if Yellow is empty)</option>
+            </select>
+            
+            <details>
+                <summary>⚙️ Advanced Quality Settings</summary>
+                <div class="advanced-settings">
+                    <div>
+                        <label for="pdfScale">Render Scale: <span id="scaleVal">2.0</span>x</label>
+                        <input type="range" id="pdfScale" value="2.0" min="1.0" max="4.0" step="0.5" style="width:100%;">
+                        <p class="help-text">Higher scale = sharper text but much larger file sizes.</p>
+                        <p class="warning-text">Warning: Setting this above 3.0 may cause the browser to freeze on long documents.</p>
+                    </div>
+                    <div>
+                        <label for="pdfQuality">JPEG Compression: <span id="qualityVal">90</span>%</label>
+                        <input type="range" id="pdfQuality" value="0.90" min="0.5" max="1.0" step="0.05" style="width:100%;">
+                        <p class="help-text">Lower quality reduces file size but may introduce visual artifacts around text.</p>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button id="previewBtn">Load & Preview</button>
+        <button id="downloadBtn" disabled>Download Ready PDF</button>
+    </div>
+
+    <div id="status"></div>
+
+    <div class="workspace" id="workspace">
+        <div class="pagination">
+            <button id="prevPageBtn" disabled>◀ Previous</button>
+            <span id="pageIndicator" style="font-weight: bold;">Page 1 of ?</span>
+            <button id="nextPageBtn">Next ▶</button>
+        </div>
+        
+        <div class="preview-panels">
+            <div class="panel">
+                <h3>Original</h3>
+                <canvas id="originalCanvas"></canvas>
+            </div>
+            <div class="panel">
+                <h3>Converted</h3>
+                <canvas id="previewCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdfjs/pdf.worker.min.js';
+
+    let loadedPdf = null;
+    let originalFileName = "document";
+    let currentPage = 1;
+
+    // UI Listeners for Advanced Settings
+    document.getElementById('pdfScale').addEventListener('input', (e) => {
+        document.getElementById('scaleVal').innerText = parseFloat(e.target.value).toFixed(1);
+    });
+    document.getElementById('pdfQuality').addEventListener('input', (e) => {
+        document.getElementById('qualityVal').innerText = Math.round(parseFloat(e.target.value) * 100);
+    });
+
+    // Color Tinting Logic
+    function applyColorTint(ctx, width, height, targetRGB, forceMonochrome) {
+        const imgData = ctx.getImageData(0, 0, width, height);
+        const data = imgData.data;
+        const [targetR, targetG, targetB] = targetRGB.split(',').map(Number);
+
+        for (let i = 0; i < data.length; i += 4) {
+            let r = data[i], g = data[i+1], b = data[i+2];
+            let gray = (r * 0.299 + g * 0.587 + b * 0.114);
+
+            if (forceMonochrome) {
+                // Map all grays to the target color gradient
+                data[i]   = targetR + (255 - targetR) * (gray / 255);
+                data[i+1] = targetG + (255 - targetG) * (gray / 255);
+                data[i+2] = targetB + (255 - targetB) * (gray / 255);
+            } else {
+                // Smart mode: Only change dark/grayscale pixels. Preserve vibrant colors.
+                // Calculate saturation (how different the max and min RGB values are)
+                let max = Math.max(r, g, b);
+                let min = Math.min(r, g, b);
+                let saturation = max === 0 ? 0 : (max - min) / max;
+
+                // If it's desaturated (grayish) AND darkish, tint it
+                if (saturation < 0.25 && gray < 200) {
+                    data[i]   = targetR + (255 - targetR) * (gray / 255);
+                    data[i+1] = targetG + (255 - targetG) * (gray / 255);
+                    data[i+2] = targetB + (255 - targetB) * (gray / 255);
+                }
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    // Render a specific page to the UI
+    async function renderPageToUI(pageNum) {
+        if (!loadedPdf) return;
+        
+        const statusDiv = document.getElementById('status');
+        const targetColor = document.getElementById('colorSelect').value;
+        const forceMonochrome = document.getElementById('forceGrayscale').checked;
+        
+        try {
+            const page = await loadedPdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 1.5 }); // Fixed scale for screen preview
+            
+            // Setup Original Canvas
+            const origCanvas = document.getElementById('originalCanvas');
+            const origCtx = origCanvas.getContext('2d');
+            origCanvas.width = viewport.width;
+            origCanvas.height = viewport.height;
+            await page.render({ canvasContext: origCtx, viewport: viewport }).promise;
+
+            // Setup Converted Canvas
+            const prevCanvas = document.getElementById('previewCanvas');
+            const prevCtx = prevCanvas.getContext('2d', { willReadFrequently: true });
+            prevCanvas.width = viewport.width;
+            prevCanvas.height = viewport.height;
+            
+            // Draw original onto preview canvas, then apply tint
+            prevCtx.drawImage(origCanvas, 0, 0);
+            applyColorTint(prevCtx, prevCanvas.width, prevCanvas.height, targetColor, forceMonochrome);
+
+            // Update Pagination UI
+            document.getElementById('pageIndicator').innerText = `Page ${pageNum} of ${loadedPdf.numPages}`;
+            document.getElementById('prevPageBtn').disabled = pageNum <= 1;
+            document.getElementById('nextPageBtn').disabled = pageNum >= loadedPdf.numPages;
+
+        } catch (err) {
+            console.error(err);
+            statusDiv.innerText = "Error rendering page.";
+        }
+    }
+
+    // Load PDF and initialize preview
+    document.getElementById('previewBtn').addEventListener('click', async () => {
+        const fileInput = document.getElementById('pdfInput');
+        const statusDiv = document.getElementById('status');
+        
+        if (!fileInput.files.length) {
+            statusDiv.innerText = "Please select a PDF file first.";
+            return;
+        }
+
+        const file = fileInput.files[0];
+        originalFileName = file.name.replace('.pdf', '');
+        statusDiv.innerText = "Loading PDF...";
+        
+        const fileReader = new FileReader();
+        fileReader.onload = async function() {
+            try {
+                const typedarray = new Uint8Array(this.result);
+                loadedPdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
+                currentPage = 1;
+                
+                await renderPageToUI(currentPage);
+
+                document.getElementById('workspace').style.display = 'block';
+                document.getElementById('downloadBtn').disabled = false;
+                statusDiv.innerText = "Preview generated! Adjust settings or download.";
+
+            } catch (error) {
+                console.error(error);
+                statusDiv.innerText = "Error loading PDF.";
+            }
+        };
+        fileReader.readAsArrayBuffer(file);
+    });
+
+    // Pagination Controls
+    document.getElementById('prevPageBtn').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPageToUI(currentPage);
+        }
+    });
+    
+    document.getElementById('nextPageBtn').addEventListener('click', () => {
+        if (currentPage < loadedPdf.numPages) {
+            currentPage++;
+            renderPageToUI(currentPage);
+        }
+    });
+
+    // Download Full PDF
+    document.getElementById('downloadBtn').addEventListener('click', async () => {
+        if (!loadedPdf) return;
+
+        const statusDiv = document.getElementById('status');
+        const targetColor = document.getElementById('colorSelect').value;
+        const forceMonochrome = document.getElementById('forceGrayscale').checked;
+        const scale = parseFloat(document.getElementById('pdfScale').value);
+        const quality = parseFloat(document.getElementById('pdfQuality').value);
+        
+        const { jsPDF } = window.jspdf;
+        
+        document.getElementById('downloadBtn').disabled = true;
+        document.getElementById('previewBtn').disabled = true;
+
+        try {
+            let newPdf = null; 
+
+            for (let pageNum = 1; pageNum <= loadedPdf.numPages; pageNum++) {
+                statusDiv.innerText = `Processing page ${pageNum} of ${loadedPdf.numPages}... (High Quality)`;
+                
+                const page = await loadedPdf.getPage(pageNum);
+                const viewport = page.getViewport({ scale: scale }); 
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+                applyColorTint(ctx, canvas.width, canvas.height, targetColor, forceMonochrome);
+
+                const pdfWidth = viewport.width / scale;
+                const pdfHeight = viewport.height / scale;
+                
+                if (pageNum === 1) {
+                    newPdf = new jsPDF({
+                        orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
+                        unit: 'pt',
+                        format: [pdfWidth, pdfHeight]
+                    });
+                } else {
+                    newPdf.addPage([pdfWidth, pdfHeight], pdfWidth > pdfHeight ? 'landscape' : 'portrait');
+                }
+
+                const imgDataUrl = canvas.toDataURL('image/jpeg', quality);
+                newPdf.addImage(imgDataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            statusDiv.innerText = "Done! Check your downloads folder.";
+            
+            const colorSelect = document.getElementById('colorSelect');
+            const colorName = colorSelect.options[colorSelect.selectedIndex].text.split(' ')[1];
+            newPdf.save(`${originalFileName}_${colorName}_Printable.pdf`);
+            
+        } catch (error) {
+            console.error(error);
+            statusDiv.innerText = "An error occurred during download.";
+        } finally {
+            document.getElementById('downloadBtn').disabled = false;
+            document.getElementById('previewBtn').disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>

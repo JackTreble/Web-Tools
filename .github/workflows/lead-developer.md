@@ -1,6 +1,6 @@
 ---
 name: "Lead Developer: Build"
-description: "Automatically generates the web tool code once a spec is merged."
+description: "Implements approved spec tasks into working tool code using Speckit implementation workflow."
 on:
   push:
     branches: [main]
@@ -17,7 +17,7 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files: ["*.html", "scripts/**/*", "styles/**/*", "tools/**/*"]
+    allowed-files: ["scripts/**/*", "styles/**/*", "specs/**/*", "tools/**/*", "vendor/**/*", "package.json", "package-lock.json"]
   add-comment: {}
 
 tools:
@@ -27,37 +27,40 @@ tools:
 # Intelligence Squad: Lead Developer
 
 ## Goal
-Convert the merged Spec-Kit into a working, single-page browser utility.
+Convert approved planning artifacts into a working, single-page browser utility by running `/speckit.implement`.
 
 ## Instructions
 1. **Context Initialization**:
-  - Read `.specify/memory/constitution.md` and `AGENTS.md`.
-  - Identify the `.specify/[feature-slug]/` folder introduced by the merged PR that triggered this run.
+  - Read `AGENTS.md`.
+  - Identify the `specs/[feature-slug]/` folder introduced or updated by the merged planning PR that triggered this run.
   - Read `specs/[feature-slug]/spec.md` and `specs/[feature-slug]/tasks.md`.
   - Derive `feature-slug-no-number` from the folder name by removing any leading numeric prefix (for example, `001-print-tool` → `print-tool`).
 
-2. **Code Generation**:
-   - Based on the `tasks.md`, generate the necessary HTML, CSS, and Vanilla JavaScript.
-  - **Requirement**: Create the page at the repository root as `/[feature-slug-no-number].html` so the tool has a simple URL.
+2. **Implementation via `/speckit.implement`**:
+  - Invoke `/speckit.implement` using `specs/[feature-slug]/spec.md` and `specs/[feature-slug]/tasks.md` as the source of truth.
+  - Implement only the approved scope represented in those planning files.
+  - Generate the necessary HTML, CSS, and Vanilla JavaScript.
+  - **Requirement**: Create the tool page at `/tools/[feature-slug-no-number].html`.
   - **Requirement**: Place tool-specific scripts and assets under `/tools/[feature-slug-no-number]/`.
   - **Requirement**: Prefer shared, reusable assets in centralized `/styles/` and `/scripts/` folders when functionality or styling should be consistent across tools.
   - **Requirement**: Reuse existing shared CSS and JavaScript before creating new tool-specific files.
-  - **Requirement**: Add a `<script type="application/ld+json">` block to the root HTML with structured data appropriate to the tool.
-  - **Guidance**: The root HTML file may contain page-specific metadata, structured data, and light inline setup code when that keeps the tool simple, similar to existing root-page tools.
-  - **Standard**: External CDNs are allowed for stable browser-side libraries when helpful. No NPM. No React. Use modern Browser APIs (ES Modules, CSS Grid/Flexbox).
+  - **Requirement**: Add a `<script type="application/ld+json">` block to the HTML with structured data appropriate to the tool.
+  - **Guidance**: The HTML file may contain page-specific metadata, structured data, and light inline setup code when that keeps the tool simple, similar to existing tools.
+  - **Standard**: Runtime third-party browser assets must be committed under shared `/vendor/` paths. Dev-only npm usage is allowed to download or refresh those assets, but shipped pages must not depend on CDNs or `node_modules/`. No React. Use modern Browser APIs (ES Modules, CSS Grid/Flexbox).
 
 3. **Validation**:
-  - Double-check that the code does NOT attempt any runtime `fetch()` calls to external APIs for tool functionality, as per the Constitution.
-  - CDN-hosted script or stylesheet includes are acceptable when they are static dependencies loaded by the page.
+  - Double-check that the code does NOT attempt any runtime `fetch()` calls to external APIs for tool functionality.
+  - Confirm script and stylesheet includes reference committed local files, preferably shared assets in `/vendor/`, `/styles/`, or `/scripts/`.
    - Ensure the UI is clean and functional for a "utility-first" tool.
   - Confirm the page includes valid `application/ld+json` structured data relevant to the tool.
-  - Confirm the generated page path uses `feature-slug-no-number`, not the raw `.specs/` folder name if it includes a numeric prefix.
+  - Confirm the generated page path uses `feature-slug-no-number` at `/tools/[feature-slug-no-number].html`, not the raw `specs/` folder name if it includes a numeric prefix.
   - Confirm shared assets live in `/styles/` and `/scripts/` when appropriate, while tool-specific logic stays under `/tools/[feature-slug-no-number]/`.
 
 4. **Submission**:
    - Use `create-pull-request` to submit the code.
   - **PR Title**: "[BUILD] - {{feature-slug-no-number}} Implementation"
-  - **PR Body**: List the features implemented, note any shared assets or CDN dependencies used, and explain how to run it by opening `/[feature-slug-no-number].html`.
+  - **PR Body**: List the features implemented, note any shared assets or vendored dependencies used, and explain how to run it by opening `/tools/[feature-slug-no-number].html`.
+  - Include a single explicit GitHub closing reference to the original feature issue (for example: `Closes #<issue-number>`), so the issue closes only when this implementation PR is merged.
 
 5. **Notification**:
    - Find the original issue related to this feature (referenced in the spec) and comment: 

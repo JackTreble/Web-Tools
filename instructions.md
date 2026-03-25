@@ -20,9 +20,12 @@ This project exists to fight back against planned obsolescence, dark patterns, f
 We prioritize simplicity and accessibility over modern framework trends. 
 
 * **The Stack:** Vanilla HTML5, CSS3, and JavaScript (ES6+). 
-* **No Build Tools:** Do not use Webpack, Vite, React, Vue, or npm packages. The code must run instantly when opening the `.html` file in a browser.
-* **Libraries via CDN:** If a complex task requires a library (like `pdf.js` or `jsPDF`), pull it exclusively via a trusted CDN (like cdnjs).
-* **File Structure:** Whenever possible, keep tools as single-file applications (`tool-name.html` containing all CSS and JS). If a tool gets too large, separate into standard `style.css` and `script.js` files, but avoid complex folder trees.
+* **No Runtime Build Requirement:** Do not use Webpack, Vite, React, or Vue. The shipped tool must run instantly when opening the `.html` file in a browser.
+* **Libraries via Local Vendor Copies:** If a complex task requires a library (like `pdf.js` or `jsPDF`), copy the browser-ready runtime files into the shared `/vendor/` directory and load them locally from the repo.
+* **Dev-Only npm Is Allowed for Vendor Management:** npm may be used only as a development workflow to download, pin, and refresh third-party browser packages before copying the required runtime assets into `/vendor/`. `node_modules/` must never be a runtime requirement and must not be used directly by shipped pages.
+* **Commit Vendored Assets:** Any third-party runtime asset used by a tool must be committed to the repository along with the package manifest/lockfile changes that produced it.
+* **Tool Location Convention:** Place tool entry pages in `/tools/` using `/tools/tool-name.html`.
+* **File Structure:** Whenever possible, keep tools as single-file applications (`/tools/tool-name.html` containing all CSS and JS). If a tool gets too large, separate into standard `style.css` and `script.js` files under `/tools/tool-name/`, but avoid complex folder trees.
 
 ---
 
