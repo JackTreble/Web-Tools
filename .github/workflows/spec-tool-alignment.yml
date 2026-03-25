@@ -1,0 +1,61 @@
+name: Spec/Tool Alignment Check
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "specs/**/spec.md"
+      - "specs/**/tasks.md"
+
+permissions:
+  contents: read
+
+jobs:
+  alignment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate spec-to-tool alignment
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE_REF="origin/${{ github.base_ref }}"
+          HEAD_SHA="${{ github.sha }}"
+
+          git fetch origin "${{ github.base_ref }}" --depth=1
+
+          CHANGED_FILES="$(git diff --name-only "$BASE_REF" "$HEAD_SHA")"
+
+          SPEC_CHANGED=false
+          TOOL_CHANGED=false
+
+          if echo "$CHANGED_FILES" | grep -Eq '^specs/.+/(spec|tasks)\.md$'; then
+            SPEC_CHANGED=true
+          fi
+
+          if echo "$CHANGED_FILES" | grep -Eq '^(tools/|vendor/|package\.json$|package-lock\.json$)'; then
+            TOOL_CHANGED=true
+          fi
+
+          PR_TITLE='${{ github.event.pull_request.title }}'
+          PR_BODY='${{ github.event.pull_request.body }}'
+          BYPASS_TEXT="$PR_TITLE\n$PR_BODY"
+
+          if echo "$BYPASS_TEXT" | grep -qi '\[spec-only\]'; then
+            echo "Bypass marker [spec-only] detected; skipping alignment enforcement."
+            exit 0
+          fi
+
+          if [[ "$SPEC_CHANGED" == "true" && "$TOOL_CHANGED" == "false" ]]; then
+            echo "Spec files changed without tool implementation changes."
+            echo "Add corresponding updates under tools/, vendor/, and/or package manifests,"
+            echo "or include [spec-only] in PR title/body if this PR is intentionally planning-only."
+            exit 1
+          fi
+
+          echo "Spec/tool alignment check passed."

@@ -2,11 +2,12 @@
 name: Deploy static content to Pages
 
 on:
+  workflow_dispatch:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
     paths:
-      - 'tools/'
+      - 'tools/**'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

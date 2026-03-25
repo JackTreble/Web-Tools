@@ -30,6 +30,7 @@ name: "Lead Developer: Build"
     branches:
     - main
     paths:
+    - specs/**/spec.md
     - specs/**/tasks.md
 
 permissions: {}

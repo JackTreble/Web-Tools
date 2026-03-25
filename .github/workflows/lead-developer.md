@@ -5,6 +5,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'specs/**/spec.md'
       - 'specs/**/tasks.md'
 
 permissions:
@@ -27,7 +28,7 @@ tools:
 # Intelligence Squad: Lead Developer
 
 ## Goal
-Convert approved planning artifacts into a working, single-page browser utility by running `/speckit.implement`.
+Convert approved planning artifacts into a working, single-page browser utility by running `/speckit.implement`, then open an implementation PR for human review.
 
 ## Instructions
 1. **Context Initialization**:
@@ -63,3 +64,6 @@ Convert approved planning artifacts into a working, single-page browser utility 
 5. **Notification**:
    - Find the original issue related to this feature (referenced in the spec) and comment: 
      "The code is ready! 🚀 Review the implementation PR here: [pull-request-url]"
+
+## Notes
+- This workflow is intentionally PR-based (not direct merge to `main`) so humans can validate generated implementation changes before release.

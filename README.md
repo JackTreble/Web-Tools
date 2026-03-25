@@ -31,6 +31,36 @@ There is no build step. Open files in `/tools/*.html` directly in a browser or s
 
 Third-party browser libraries are loaded from committed files in [vendor](vendor), not external CDNs.
 
+## Delivery workflow
+
+This repository uses a multi-stage workflow to move from idea discovery to shipped tools.
+
+### 1) Researcher — discover net-new tool ideas
+
+- Workflow: [.github/workflows/researcher.md](.github/workflows/researcher.md)
+- Purpose: find browser-first opportunities that are not duplicates of existing specs/issues.
+- Output: proposal issues with evidence, scope rationale, and browser API feasibility.
+
+### 2) Product Architect — turn approved ideas into planning artifacts
+
+- Workflow: [.github/workflows/product-architect.md](.github/workflows/product-architect.md)
+- Trigger: approved issue labels.
+- Purpose: generate/update planning artifacts under [specs](specs), including `spec.md` and `tasks.md`.
+- Output: planning PRs that define what should be built.
+
+### 3) Lead Developer — implement from spec/tasks
+
+- Workflow: [.github/workflows/lead-developer.md](.github/workflows/lead-developer.md)
+- Trigger: changes to `specs/**/spec.md` or `specs/**/tasks.md` on `main`.
+- Purpose: implement approved scope into tool pages and assets under [tools](tools).
+- Output: implementation PRs for human review (not direct merge automation).
+
+### Spec-to-tool synchronization
+
+- If spec or task files change, the Lead Developer workflow runs again to update implementation accordingly.
+- PR guard: [.github/workflows/spec-tool-alignment.yml](.github/workflows/spec-tool-alignment.yml) checks that spec/task changes are accompanied by relevant tool/vendor/package updates.
+- Intentional planning-only PRs can use `[spec-only]` in PR title or body to bypass the alignment check.
+
 ### Managing shared vendor assets
 
 - Keep runtime dependencies in [vendor](vendor) so tools remain portable and reusable across workflows.
@@ -41,6 +71,6 @@ When adding tools:
 
 - keep processing in the browser
 - prefer vanilla HTML, CSS, and JavaScript
-- load third-party runtime assets from the shared `/tools/vendor/` directory
+- load third-party runtime assets from the shared `/vendor/` directory
 - use descriptive titles, meta descriptions, and clear how-to content
 - include practical controls such as undo, reset, preview, color selection, or quality settings when relevant
