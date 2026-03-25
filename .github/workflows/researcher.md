@@ -70,7 +70,7 @@ From the shortlist, keep only candidates that are:
 - Simple enough to explain and scope quickly
 
 Select an **appropriate number** of issue-worthy opportunities using this rule:
-- Create **0 issues** if no candidates survive validation
+- Create **0 issues** if no candidates survive validation — but you **must** still call `noop` (see Step 6)
 - Create **1 issue** if only one candidate is high-confidence
 - Create **2 issues** if two strong, clearly distinct opportunities survive
 - Create **3 issues** if three strong, clearly distinct opportunities survive
@@ -102,6 +102,17 @@ Use the `create-issue` safe-output only after discovery filtering and `/speckit.
 
 Create one issue per validated opportunity.
 Only create issues for candidates that are not already represented in `/specs/**`, open issues, or closed issues.
+
+### Step 6 — Always produce a safe output
+You **must** always call at least one safe-output tool before finishing.
+
+- If you created **1 or more issues**, no additional action is needed — the `create-issue` calls are your safe outputs.
+- If you created **0 issues**, you **must** call `noop` with a brief explanation that covers:
+  - How many candidates you discovered
+  - Why each was rejected (already exists in specs, already proposed in issues, not browser-viable, etc.)
+  - A one-sentence summary of the current state (e.g., "All viable opportunities from this pass are already tracked")
+
+This ensures every run produces visible output even when no new opportunities are found.
 
 ## Proposal Requirements
 - **Title:** [PROPOSAL] - [Tool Name]
