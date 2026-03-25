@@ -2,6 +2,7 @@
   "name": "web-tools",
   "private": true,
   "scripts": {
+    "serve:tools": "node scripts/serve-tools.mjs",
     "vendor:sync": "node scripts/sync-vendor.mjs",
     "vendor:update": "npm update && npm run vendor:sync"
   },
