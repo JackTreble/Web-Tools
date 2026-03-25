@@ -1,5 +1,11 @@
 /* tools/video-trimmer-gif-exporter/main.js */
 
+// Capture script directory for resolving vendor asset paths
+const _scriptBase = (function () {
+    const src = document.currentScript && document.currentScript.src;
+    return src ? new URL('.', src).href : (window.location.origin + '/tools/video-trimmer-gif-exporter/');
+}());
+
 // ── State ──────────────────────────────────────────────────────────────
 const state = {
     file: null,
@@ -77,8 +83,8 @@ async function initFFmpeg() {
         }, 200);
 
         await ffmpeg.load({
-            coreURL: 'https://unpkg.com/@ffmpeg/core-st@0.12.6/dist/umd/ffmpeg-core.js',
-            wasmURL: 'https://unpkg.com/@ffmpeg/core-st@0.12.6/dist/umd/ffmpeg-core.wasm',
+            coreURL: _scriptBase + 'vendor/ffmpeg-core.js',
+            wasmURL: _scriptBase + 'vendor/ffmpeg-core.wasm',
         });
 
         clearInterval(simInterval);
