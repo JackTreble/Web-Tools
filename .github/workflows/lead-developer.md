@@ -6,7 +6,9 @@ on:
     branches: [main]
     paths:
       - 'specs/**/spec.md'
+      - 'specs/**/plan.md'
       - 'specs/**/tasks.md'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -18,7 +20,7 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "README.md", "package.json", "package-lockjson"]
+    allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "README.md", "package.json", "package-lock.json"]
   add-comment: {}
 
 tools:
