@@ -26,7 +26,7 @@ tools:
 # Intelligence Squad: Product Lead
 
 ## Goal
-Transform the triggering approved issue into implementation-ready planning artifacts by running `/speckit.plan` and `/speckit.tasks`, then route the result back to the issue as a PR.
+Transform the triggering approved issue into implementation-ready planning artifacts by running `/speckit.plan` and `/speckit.tasks`, then open a PR with the generated files and comment the PR link back on the issue.
 
 Portfolio focus reminder: prioritize tools that replace paywalled or heavily restricted workflows for broad non-technical audiences. De-prioritize low-level developer utilities (for example Base64/JWT/cron helpers) unless the issue includes clear evidence of mainstream, non-technical demand.
 
@@ -43,12 +43,13 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
   - Fetch the triggering issue via the GitHub tool.
   - Treat the issue title and body/description as the source of truth for priorities and constraints.
   - Resolve the target feature slug and existing spec path from the issue body, linked PRs, or referenced files under `specs/**`.
-  - If no existing `spec.md` can be confidently identified, do not invent one in this workflow. Add a concise issue comment requesting a spec created via `/speckit.specify`, then stop.
+  - If the referenced `spec.md` does not exist in the repository, use the issue body as the spec source — the issue body typically contains a full problem statement, user stories, scope, and acceptance criteria that serve as the planning input.
+  - Only fall back to requesting a spec if the issue body itself lacks sufficient detail to generate a plan.
 3. **Generate planning artifacts with `/speckit.plan` and `/speckit.tasks`**
-  - Invoke `/speckit.plan` using the identified `specs/[feature-slug]/spec.md` as primary input.
+  - Invoke `/speckit.plan` using the identified `specs/[feature-slug]/spec.md` (or the issue body if the spec file is absent) as primary input.
   - Ensure the plan stays grounded in the approved issue scope.
   - Invoke `/speckit.tasks` from the generated plan output.
-  - Produce/update planning files under `specs/[feature-slug]/` (for example `tasks.md` and any plan artifacts produced by Speckit).
+  - Produce/update planning files under `specs/[feature-slug]/` (for example `plan.md`, `tasks.md`, and any plan artifacts produced by Speckit).
 4. **Validate the Output**
   - Ensure plan/tasks are grounded in the triggering issue and existing spec rather than invented scope.
   - Ensure the spec adheres to the "No-Backend" rule in `AGENTS.md`:
@@ -56,7 +57,8 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
     - No server-side logic
     - GitHub Pages compatible
 5. **Raise the Pull Request**
-  - Use `create-pull-request` to open a PR containing only generated/updated `specs/**/*` planning files.
+  - You **must** call `create_pull_request` to open a PR containing the generated/updated `specs/**/*` planning files.
+  - This is a required step — do not skip it. Completing the plan and tasks generation without opening a PR is an incomplete workflow run.
   - Use a PR title/body that clearly references the triggering issue.
   - Do **not** include GitHub auto-closing keywords in the PR title or body (for example: `close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved` followed by an issue reference).
   - Reference the issue in a non-closing way (for example: `Related to #<issue-number>`).
@@ -84,4 +86,14 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
     3. Request edits or approve the PR for implementation.
     ```
 7. **Failure Handling**
-  - If `/speckit.plan`, `/speckit.tasks`, or PR creation fails, leave a concise issue comment stating what failed and what needs human follow-up.
+  - If `/speckit.plan`, `/speckit.tasks`, or PR creation fails, leave a concise issue comment via `add_comment` stating what failed and what needs human follow-up.
+
+## Always Produce a Safe Output
+
+You **must** always call at least one safe-output tool before finishing.
+
+- **Normal path**: call `create_pull_request` (steps 3–5) and then `add_comment` (step 6). Both are expected outputs for a successful run.
+- **Spec or data missing**: if the issue body lacks sufficient detail to generate a plan, call `add_comment` on the triggering issue to request a proper spec via `/speckit.specify`, then stop.
+- **Any other failure**: call `add_comment` on the triggering issue with a brief summary of what went wrong.
+
+Never finish this workflow without calling at least one safe-output tool. Producing zero outputs is always incorrect.
