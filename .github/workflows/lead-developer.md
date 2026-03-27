@@ -21,6 +21,7 @@ engine: claude
 safe-outputs:
   create-pull-request:
     allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "scripts/*", "README.md", "package.json", "package-lock.json"]
+  threat-detection: false
   add-comment: {}
 
 tools:
