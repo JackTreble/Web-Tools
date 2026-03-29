@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free QR Code Generator — Custom Colors, No Watermark | VibeCoded</title>
+    <meta name="description" content="Generate custom QR codes instantly in your browser. Choose colors, error correction, and output size. Download PNG or SVG with no watermark, no account, and no data uploads. Supports WiFi, vCard, and SMS templates.">
+    <meta name="keywords" content="free QR code generator, custom QR code no watermark, wifi QR code generator, vcard QR code, QR code maker, browser QR code, offline QR code">
+
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="qr-code-generator/style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Free QR Code Generator",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any (Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Generate custom QR codes in your browser with no watermark, no uploads, and no account required. Supports plain text, URLs, WiFi credentials, vCard contacts, and SMS.",
+      "featureList": [
+        "Live QR code preview as you type",
+        "Custom foreground and background colors",
+        "Error correction level selection (L, M, Q, H)",
+        "Download as PNG or SVG — no watermark",
+        "WiFi QR code template",
+        "vCard contact QR code template",
+        "SMS QR code template",
+        "100% offline after first load"
+      ],
+      "url": "https://tools.treble.dev/qr-code-generator.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to generate a custom QR code",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Enter your content",
+          "text": "Type or paste a URL, text, or choose a structured template (WiFi, vCard, SMS) and fill in the fields."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Customize appearance",
+          "text": "Pick foreground and background colors, choose error correction level, and set the output size."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Download your QR code",
+          "text": "Click 'Download PNG' or 'Download SVG' to save your watermark-free QR code."
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <header class="tool-header">
+        <a href="index.html" class="back-link">&#8592; All Tools</a>
+        <h1>&#x25A3; QR Code Generator</h1>
+        <p class="hero-text">
+            Generate custom QR codes instantly — pick your colors, choose your format, download PNG or SVG.
+            <strong>100% private. No uploads. Works offline.</strong>
+        </p>
+        <div class="badge-container">
+            <span class="badge">100% Private</span>
+            <span class="badge">No Uploads</span>
+            <span class="badge">No Watermark</span>
+            <span class="badge">Free Forever</span>
+        </div>
+    </header>
+
+    <div class="how-to" aria-label="How to use this tool">
+        <div class="step"><span class="step-num">1</span> Enter content</div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step"><span class="step-num">2</span> Customize style</div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step"><span class="step-num">3</span> Download PNG or SVG</div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher" role="tablist" aria-label="Content type">
+        <button class="mode-btn active" role="tab" aria-selected="true" data-mode="plain" id="tab-plain" aria-controls="panel-plain">Plain / URL</button>
+        <button class="mode-btn" role="tab" aria-selected="false" data-mode="wifi" id="tab-wifi" aria-controls="panel-wifi">WiFi</button>
+        <button class="mode-btn" role="tab" aria-selected="false" data-mode="vcard" id="tab-vcard" aria-controls="panel-vcard">vCard</button>
+        <button class="mode-btn" role="tab" aria-selected="false" data-mode="sms" id="tab-sms" aria-controls="panel-sms">SMS</button>
+    </div>
+
+    <!-- Plain / URL Input -->
+    <div class="input-panel" id="panel-plain" role="tabpanel" aria-labelledby="tab-plain">
+        <label for="qr-input" class="input-label">URL or Text</label>
+        <textarea
+            id="qr-input"
+            class="qr-textarea"
+            placeholder="Enter a URL or text (e.g. https://example.com)"
+            rows="3"
+            aria-label="URL or text to encode in QR code"
+            autocomplete="off"
+            spellcheck="false"
+        ></textarea>
+    </div>
+
+    <!-- WiFi Template -->
+    <div class="input-panel hidden" id="panel-wifi" role="tabpanel" aria-labelledby="tab-wifi">
+        <div class="field-group">
+            <label for="wifi-ssid" class="input-label">Network Name (SSID)</label>
+            <input type="text" id="wifi-ssid" class="text-input" placeholder="MyWiFiNetwork" aria-label="WiFi network name SSID">
+        </div>
+        <div class="field-group">
+            <label for="wifi-password" class="input-label">Password</label>
+            <input type="text" id="wifi-password" class="text-input" placeholder="Password (leave blank if open)" aria-label="WiFi password">
+        </div>
+        <div class="field-group">
+            <label for="wifi-security" class="input-label">Security</label>
+            <select id="wifi-security" class="select-input" aria-label="WiFi security type">
+                <option value="WPA">WPA / WPA2</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">None (Open Network)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- vCard Template -->
+    <div class="input-panel hidden" id="panel-vcard" role="tabpanel" aria-labelledby="tab-vcard">
+        <div class="field-group">
+            <label for="vcard-name" class="input-label">Full Name</label>
+            <input type="text" id="vcard-name" class="text-input" placeholder="Jane Smith" aria-label="Contact full name">
+        </div>
+        <div class="field-group">
+            <label for="vcard-phone" class="input-label">Phone Number</label>
+            <input type="tel" id="vcard-phone" class="text-input" placeholder="+1 555 123 4567" aria-label="Contact phone number">
+        </div>
+        <div class="field-group">
+            <label for="vcard-email" class="input-label">Email Address</label>
+            <input type="email" id="vcard-email" class="text-input" placeholder="jane@example.com" aria-label="Contact email address">
+        </div>
+    </div>
+
+    <!-- SMS Template -->
+    <div class="input-panel hidden" id="panel-sms" role="tabpanel" aria-labelledby="tab-sms">
+        <div class="field-group">
+            <label for="sms-phone" class="input-label">Phone Number</label>
+            <input type="tel" id="sms-phone" class="text-input" placeholder="+1 555 123 4567" aria-label="SMS recipient phone number">
+        </div>
+        <div class="field-group">
+            <label for="sms-message" class="input-label">Message (optional)</label>
+            <textarea id="sms-message" class="qr-textarea" placeholder="Pre-filled message text" rows="2" aria-label="SMS message text"></textarea>
+        </div>
+    </div>
+
+    <!-- Warnings -->
+    <div id="contrast-warning" class="warning-banner hidden" role="alert" aria-live="polite">
+        &#9888;&#65039; <strong>Low contrast</strong> — QR code may not scan reliably with these colors.
+    </div>
+    <div id="capacity-warning" class="warning-banner hidden" role="alert" aria-live="polite">
+        &#9888;&#65039; <strong>Input too long</strong> — reduce content or lower the error correction level.
+    </div>
+
+    <!-- Main Workspace: Preview + Controls -->
+    <div class="qr-workspace">
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+            <div class="preview-container" id="preview-container" aria-label="QR code preview">
+                <div class="preview-placeholder" id="preview-placeholder" aria-hidden="true">
+                    <div class="placeholder-icon">&#x25A3;</div>
+                    <p>Enter text or a URL to generate your QR code</p>
+                </div>
+                <canvas id="qr-preview" aria-label="Generated QR code"></canvas>
+            </div>
+            <div class="download-row">
+                <button class="btn btn-primary" id="download-png-btn" disabled aria-label="Download QR code as PNG">
+                    &#8659; Download PNG
+                </button>
+                <button class="btn btn-secondary" id="download-svg-btn" disabled aria-label="Download QR code as SVG">
+                    &#8659; Download SVG
+                </button>
+            </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="controls-panel">
+
+            <div class="control-section">
+                <h2 class="controls-heading">Appearance</h2>
+
+                <div class="control-row">
+                    <label class="control-label" for="fg-color">Foreground</label>
+                    <div class="color-control">
+                        <input type="color" id="fg-color" value="#000000" aria-label="QR code foreground color picker">
+                        <input type="text" id="fg-hex" class="hex-input" value="#000000" maxlength="7" aria-label="QR code foreground color hex value" spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <label class="control-label" for="bg-color">Background</label>
+                    <div class="color-control">
+                        <input type="color" id="bg-color" value="#ffffff" aria-label="QR code background color picker">
+                        <input type="text" id="bg-hex" class="hex-input" value="#ffffff" maxlength="7" aria-label="QR code background color hex value" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h2 class="controls-heading">Quality</h2>
+
+                <div class="control-row">
+                    <label class="control-label" for="ec-level">Error Correction</label>
+                    <select id="ec-level" class="select-input" aria-label="Error correction level">
+                        <option value="L">Low (L) — smallest</option>
+                        <option value="M" selected>Medium (M) — recommended</option>
+                        <option value="Q">Quartile (Q) — high</option>
+                        <option value="H">High (H) — maximum</option>
+                    </select>
+                </div>
+
+                <div class="control-row">
+                    <label class="control-label" for="size-slider">PNG Size</label>
+                    <div class="slider-control">
+                        <input type="range" id="size-slider" min="200" max="2000" step="50" value="512" aria-label="PNG output size in pixels" aria-valuetext="512 pixels">
+                        <span id="size-display" class="size-display" aria-live="polite">512 px</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <button class="btn btn-secondary reset-btn" id="reset-btn" aria-label="Reset all settings to defaults">
+                    &#8635; Reset to Defaults
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- How to Use Section -->
+    <section class="how-to-section" aria-labelledby="how-to-heading">
+        <h2 id="how-to-heading">How to Use the Free QR Code Generator</h2>
+        <ol class="how-to-list">
+            <li><strong>Enter your content</strong> — type or paste a URL, plain text, or switch to a template (WiFi, vCard, SMS) and fill in the fields. Your QR code updates live as you type.</li>
+            <li><strong>Customize the appearance</strong> — pick custom foreground and background colors using the color pickers. Change the error correction level (higher = more damage-tolerant, but denser pattern). Adjust the output size for high-resolution PNG exports.</li>
+            <li><strong>Download your QR code</strong> — click <em>Download PNG</em> for a raster image at your chosen size, or <em>Download SVG</em> for a scalable vector image. Both files contain no watermark or attribution.</li>
+        </ol>
+        <p class="how-to-note">All QR codes are generated entirely in your browser. No data is sent to any server — not even the text you type.</p>
+
+        <h3>Content Type Templates</h3>
+        <ul class="template-list">
+            <li><strong>WiFi</strong> — generates a QR code your guests can scan to join your network automatically, no typing required.</li>
+            <li><strong>vCard</strong> — generates a contact card QR code. When scanned, phones prompt to save the contact.</li>
+            <li><strong>SMS</strong> — generates a QR code that opens a pre-filled SMS message when scanned.</li>
+        </ul>
+    </section>
+</div>
+
+<script src="vendor/qrcode/qrcode.min.js"></script>
+<script type="module" src="qr-code-generator/main.js"></script>
+</body>
+</html>

@@ -35,6 +35,14 @@
         "tools/vendor/ffmpeg/ffmpeg-core.wasm",
         "tools/vendor/ffmpeg/814.ffmpeg.js"
       ]
+    },
+    "qrcode": {
+      "package": "qrcode",
+      "version": "1.5.4",
+      "bundler": "esbuild (IIFE, global name: QRCodeLib)",
+      "files": [
+        "tools/vendor/qrcode/qrcode.min.js"
+      ]
     }
   }
 }
