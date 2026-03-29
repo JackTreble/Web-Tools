@@ -83,6 +83,10 @@ All agent work should produce visible, useful output from the first run.
 - **Tool Entry Pages:** Tool HTML entry files SHOULD live under `/tools/` as `/tools/[tool-name].html`.
 - **Dependencies:** Prefer vanilla solutions. If a library is needed, prefer browser-compatible files committed under the shared `/tools/vendor/` directory.
 - **Dependency Workflow:** Dev-only npm usage is allowed for pinning and refreshing third-party browser packages, but shipped pages must load committed files from `/tools/vendor/`, not CDNs or `node_modules/`.
+   - When adding or updating vendor runtime dependencies, update `package.json` entries first.
+   - Run `npm install` so installed versions and lockfile match declared dependencies.
+   - Update `scripts/sync-vendor.mjs` so required runtime files are copied into shared `/tools/vendor/`.
+   - Run `npm run vendor:update` to refresh checked-in vendor files and regenerate `tools/vendor/manifest.json`.
 - **Styling:** Mobile-first design using standard CSS or lightweight browser-friendly approaches.
 - **Shared Tool Styling:** Reuse `/tools/common.css` for global tokens and shared UI primitives. Keep only tool-specific CSS in `/tools/[feature-slug]/style.css`.
 - **Tool Bootstrap Template:** Start new tools from `/tools/template.html` and then replace placeholders.
