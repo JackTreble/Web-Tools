@@ -1,6 +1,7 @@
 import { copyFile, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { build as esbuild } from 'esbuild';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const nodeModulesDir = path.join(rootDir, 'node_modules');
@@ -30,6 +31,7 @@ await ensureCleanDir('tools/vendor/pdfjs');
 await ensureCleanDir('tools/vendor/pdf-lib');
 await ensureCleanDir('tools/vendor/jspdf');
 await ensureCleanDir('tools/vendor/ffmpeg');
+await ensureCleanDir('tools/vendor/qrcode');
 
 await copyFromNodeModules('pdfjs-dist/build/pdf.min.js', 'tools/vendor/pdfjs/pdf.min.js');
 await copyFromNodeModules('pdfjs-dist/build/pdf.worker.min.js', 'tools/vendor/pdfjs/pdf.worker.min.js');
@@ -38,6 +40,17 @@ await copyFromNodeModules('jspdf/dist/jspdf.umd.min.js', 'tools/vendor/jspdf/jsp
 await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.js');
 await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.wasm', 'tools/vendor/ffmpeg/ffmpeg-core.wasm');
 await copyFromNodeModules('@ffmpeg/ffmpeg/dist/umd/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg.js');
+
+await esbuild({
+  entryPoints: ['qrcode'],
+  bundle: true,
+  minify: true,
+  format: 'iife',
+  globalName: 'QRCodeLib',
+  outfile: path.join(rootDir, 'tools/vendor/qrcode/qrcode.min.js'),
+  platform: 'browser',
+  absWorkingDir: rootDir,
+});
 
 const ffmpegUmdDir = path.join(nodeModulesDir, '@ffmpeg', 'ffmpeg', 'dist', 'umd');
 const ffmpegUmdEntries = await readdir(ffmpegUmdDir);
@@ -72,6 +85,12 @@ const manifest = {
       corePackage: '@ffmpeg/core',
       coreVersion: await readInstalledPackageVersion(path.join('@ffmpeg', 'core')),
       files: ['tools/vendor/ffmpeg/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.wasm', ...ffmpegUmdEntries.filter((entry) => /^\d+\.ffmpeg\.js$/.test(entry)).map((entry) => `tools/vendor/ffmpeg/${entry}`)]
+    },
+    qrcode: {
+      package: 'qrcode',
+      version: await readInstalledPackageVersion('qrcode'),
+      bundler: 'esbuild (IIFE, global name: QRCodeLib)',
+      files: ['tools/vendor/qrcode/qrcode.min.js']
     }
   }
 };

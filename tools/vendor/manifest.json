@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-25T20:57:54.857Z",
+  "generatedAt": "2026-03-30T18:25:30.578Z",
   "note": "Runtime assets are checked into /tools/vendor. node_modules is development-only and must not be used at runtime.",
   "packages": {
     "pdfjs": {
