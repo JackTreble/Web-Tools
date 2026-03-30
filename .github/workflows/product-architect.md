@@ -16,7 +16,6 @@ engine: claude
 
 safe-outputs:
   create-pull-request:
-    allowed-files: ["specs/**/*"]
   add-comment: {}
 
 tools:
@@ -33,6 +32,8 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
 ## Instructions
 
 **Activation**: This workflow only runs when the `status:approved` label is added to an issue.
+
+**Scope and Outputs**: This workflow generates planning artifacts only in the `/specs/[feature-slug]/` directory. It reads `instructions.md` as reference input but does not modify it.
 
 ### Workflow Steps
 
@@ -59,10 +60,11 @@ Portfolio focus reminder: prioritize tools that replace paywalled or heavily res
   - Invoke `/speckit.plan` using the `The Tech` section of the triggering issues content as input.
   - Ensure the plan stays grounded in the approved issue scope.
   - Invoke `/speckit.tasks` from the generated plan output.
-  - Produce/update planning files under `specs/[feature-slug]/`
-  - Create a feature directory in `specs/[feature-slug]/` 
+  - Produce planning files only under `specs/[feature-slug]/`
+  - Create a feature directory in `specs/[feature-slug]/` if it does not exist
   - Generate `plan.md` following `.specify/templates/plan-template.md`
-  - Generate `tasks.md` following `.specify/templates/tasks-template.md`.
+  - Generate `tasks.md` following `.specify/templates/tasks-template.md`
+  - Do not modify `instructions.md` or any files outside the `/specs` directory.
 5. **Validate the Output**
   - Ensure plan/tasks are grounded in the triggering issue and existing spec rather than invented scope.
   - Ensure the spec adheres to the "No-Backend" rule in `AGENTS.md`:

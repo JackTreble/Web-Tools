@@ -20,7 +20,6 @@ engine: claude
 # The Coder needs to be able to propose the actual tool files
 safe-outputs:
   create-pull-request:
-    allowed-files: ["specs/**/*", "tools/*", "tools/**/*", "scripts/*", "README.md", "package.json", "package-lock.json"]
   threat-detection: false
   add-comment: {}
 
@@ -52,6 +51,11 @@ Portfolio focus reminder: implement features that serve broad non-technical user
   - **Requirement**: Add a `<script type="application/ld+json">` block to the HTML with structured data appropriate to the tool.
   - **Guidance**: The HTML file may contain page-specific metadata, structured data, and light inline setup code when that keeps the tool simple, similar to existing tools.
   - **Standard**: Runtime third-party browser assets must be committed under shared `/tools/vendor/` paths. Dev-only npm usage is allowed to download or refresh those assets, but shipped pages must not depend on CDNs or `node_modules/`. No React. Use modern Browser APIs (ES Modules, CSS Grid/Flexbox).
+  - **Dependency Workflow (required when adding/updating vendor assets)**:
+    - Add or update the corresponding package entries in `package.json`.
+    - Run `npm install` to ensure the lockfile and installed versions match `package.json`.
+    - Update `scripts/sync-vendor.mjs` so new/changed vendor files are copied into shared `/tools/vendor/`.
+    - Run `npm run vendor:update` to refresh committed runtime vendor assets and regenerate the vendor manifest.
 
 3. **Validation**:
   - Double-check that the code does NOT attempt any runtime `fetch()` calls to external APIs for tool functionality.
@@ -59,6 +63,7 @@ Portfolio focus reminder: implement features that serve broad non-technical user
   - Confirm the page includes valid `application/ld+json` structured data relevant to the tool.
   - Confirm the generated page path uses `feature-slug-no-number` at `/tools/[feature-slug-no-number].html`, not the raw `specs/` folder name if it includes a numeric prefix.
   - Confirm tool-specific logic stays under `/tools/[feature-slug-no-number]/`.
+  - When vendored dependencies were changed, confirm `package.json`, lockfile, `scripts/sync-vendor.mjs`, and `/tools/vendor/manifest.json` are all updated together.
 
 4. **Submission**:
    - Use `create-pull-request` to submit the code.
