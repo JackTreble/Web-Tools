@@ -2,8 +2,8 @@
 name: "Market Research Discovery"
 description: "Identifies browser-based tool opportunities via AI research."
 on:
-#  schedule:
-#    - cron: '0 0 * * 1' 
+  schedule:
+    - cron: 'weekly on monday'
   workflow_dispatch:
 
 permissions:
