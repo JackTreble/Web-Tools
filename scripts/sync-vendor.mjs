@@ -32,7 +32,9 @@ await ensureCleanDir('tools/vendor/pdf-lib');
 await ensureCleanDir('tools/vendor/jspdf');
 await ensureCleanDir('tools/vendor/ffmpeg');
 await ensureCleanDir('tools/vendor/qrcode');
+await ensureCleanDir('tools/vendor/jszip');
 
+await copyFromNodeModules('jszip/dist/jszip.min.js', 'tools/vendor/jszip/jszip.min.js');
 await copyFromNodeModules('pdfjs-dist/build/pdf.min.js', 'tools/vendor/pdfjs/pdf.min.js');
 await copyFromNodeModules('pdfjs-dist/build/pdf.worker.min.js', 'tools/vendor/pdfjs/pdf.worker.min.js');
 await copyFromNodeModules('pdf-lib/dist/pdf-lib.min.js', 'tools/vendor/pdf-lib/pdf-lib.min.js');
@@ -64,6 +66,11 @@ const manifest = {
   generatedAt: new Date().toISOString(),
   note: 'Runtime assets are checked into /tools/vendor. node_modules is development-only and must not be used at runtime.',
   packages: {
+    jszip: {
+      package: 'jszip',
+      version: await readInstalledPackageVersion('jszip'),
+      files: ['tools/vendor/jszip/jszip.min.js']
+    },
     pdfjs: {
       package: 'pdfjs-dist',
       version: await readInstalledPackageVersion('pdfjs-dist'),

@@ -1,7 +1,14 @@
 {
-  "generatedAt": "2026-03-30T18:25:30.578Z",
+  "generatedAt": "2026-04-03T11:26:19.215Z",
   "note": "Runtime assets are checked into /tools/vendor. node_modules is development-only and must not be used at runtime.",
   "packages": {
+    "jszip": {
+      "package": "jszip",
+      "version": "3.10.1",
+      "files": [
+        "tools/vendor/jszip/jszip.min.js"
+      ]
+    },
     "pdfjs": {
       "package": "pdfjs-dist",
       "version": "3.11.174",
