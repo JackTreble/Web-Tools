@@ -1,0 +1,457 @@
+/* ─── EXIF Stripper — tool-specific styles ────────────────────────────────── */
+
+/* Drop zone: override default to show accepted-file state */
+#drop-zone.has-file {
+    border-color: var(--success);
+    background: #f0fdf4;
+}
+
+/* ─── GPS Warning Banner ────────────────────────────────────────────────────── */
+.gps-warning {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #92400e;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.gps-warning .warn-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.gps-warning .gps-coords-link {
+    color: #0284c7;
+    font-family: monospace;
+    font-size: 0.85rem;
+    word-break: break-all;
+}
+
+.gps-warning .btn-remove-gps {
+    margin-left: auto;
+    padding: 5px 12px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+
+.gps-warning .btn-remove-gps:hover {
+    background: #b91c1c;
+}
+
+/* ─── File List (Batch Mode) ─────────────────────────────────────────────── */
+.batch-files {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.batch-files-header {
+    padding: 0.6rem 1rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+#file-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+    font-size: 0.875rem;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-item:hover {
+    background: #f8fafc;
+}
+
+.file-item.active {
+    background: #eff6ff;
+    border-left: 3px solid var(--primary);
+    padding-left: calc(1rem - 3px);
+}
+
+.file-item.status-error {
+    opacity: 0.6;
+}
+
+.file-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.gps-badge {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid #fed7aa;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tag-count {
+    color: var(--text-light);
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.file-status {
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: var(--success);
+}
+
+.file-item.status-error .file-status {
+    color: var(--danger);
+}
+
+/* ─── Metadata Table ─────────────────────────────────────────────────────── */
+.metadata-section {
+    margin-bottom: 1.25rem;
+}
+
+.metadata-section h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.6rem;
+}
+
+#exif-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#exif-table thead th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+#exif-table td {
+    padding: 0.45rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    word-break: break-word;
+}
+
+#exif-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#exif-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+#exif-table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    width: 34%;
+    white-space: nowrap;
+}
+
+#exif-table td:nth-child(2) {
+    color: var(--text-light);
+    font-family: monospace;
+    font-size: 0.82rem;
+}
+
+#exif-table a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+#exif-table a:hover {
+    text-decoration: underline;
+}
+
+.no-exif-msg {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-light);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* ─── Group Badges (table column 3) ─────────────────────────────────────── */
+.group-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.group-location {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid #fed7aa;
+}
+
+.group-device {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.group-timestamps {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.group-camera {
+    background: #fdf4ff;
+    color: #7e22ce;
+    border: 1px solid #e9d5ff;
+}
+
+/* ─── Group Checkboxes Fieldset ──────────────────────────────────────────── */
+.group-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.group-section legend {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0 0.25rem;
+}
+
+.group-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+    margin-top: 0.75rem;
+}
+
+.group-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+.group-checkboxes input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.group-all-label {
+    font-weight: 700 !important;
+    color: var(--text);
+    border-right: 1px solid var(--border);
+    padding-right: 1.25rem;
+}
+
+/* ─── Action Bar ─────────────────────────────────────────────────────────── */
+.action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* ─── Batch Progress ─────────────────────────────────────────────────────── */
+.batch-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #1d4ed8;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.batch-progress .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #bfdbfe;
+    border-top-color: #1d4ed8;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ─── Format Error ───────────────────────────────────────────────────────── */
+.format-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: var(--danger);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* ─── Toast ──────────────────────────────────────────────────────────────── */
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    animation: toast-in 0.2s ease;
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ─── How-to Section ─────────────────────────────────────────────────────── */
+.how-to-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.how-to-section h2 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin: 0 0 0.75rem;
+}
+
+.how-to-section h3 {
+    font-size: 1rem;
+    color: var(--text);
+    margin: 1.25rem 0 0.5rem;
+}
+
+.how-to-section ol,
+.how-to-section ul {
+    padding-left: 1.4rem;
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.8;
+    font-size: 0.9rem;
+}
+
+.how-to-note {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    #exif-table td:first-child {
+        width: auto;
+        white-space: normal;
+    }
+
+    #exif-table thead th:last-child,
+    #exif-table td:last-child {
+        display: none;
+    }
+
+    .gps-warning {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gps-warning .btn-remove-gps {
+        margin-left: 0;
+    }
+
+    .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-bar .btn {
+        justify-content: center;
+    }
+
+    .how-to-section {
+        padding: 1.25rem 1rem;
+    }
+}

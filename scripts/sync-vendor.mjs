@@ -30,6 +30,7 @@ await mkdir(toolsVendorDir, { recursive: true });
 await ensureCleanDir('tools/vendor/pdfjs');
 await ensureCleanDir('tools/vendor/pdf-lib');
 await ensureCleanDir('tools/vendor/jspdf');
+await ensureCleanDir('tools/vendor/jszip');
 await ensureCleanDir('tools/vendor/ffmpeg');
 await ensureCleanDir('tools/vendor/qrcode');
 
@@ -37,6 +38,7 @@ await copyFromNodeModules('pdfjs-dist/build/pdf.min.js', 'tools/vendor/pdfjs/pdf
 await copyFromNodeModules('pdfjs-dist/build/pdf.worker.min.js', 'tools/vendor/pdfjs/pdf.worker.min.js');
 await copyFromNodeModules('pdf-lib/dist/pdf-lib.min.js', 'tools/vendor/pdf-lib/pdf-lib.min.js');
 await copyFromNodeModules('jspdf/dist/jspdf.umd.min.js', 'tools/vendor/jspdf/jspdf.umd.min.js');
+await copyFromNodeModules('jszip/dist/jszip.min.js', 'tools/vendor/jszip/jszip.min.js');
 await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.js', 'tools/vendor/ffmpeg/ffmpeg-core.js');
 await copyFromNodeModules('@ffmpeg/core/dist/umd/ffmpeg-core.wasm', 'tools/vendor/ffmpeg/ffmpeg-core.wasm');
 await copyFromNodeModules('@ffmpeg/ffmpeg/dist/umd/ffmpeg.js', 'tools/vendor/ffmpeg/ffmpeg.js');
@@ -78,6 +80,11 @@ const manifest = {
       package: 'jspdf',
       version: await readInstalledPackageVersion('jspdf'),
       files: ['tools/vendor/jspdf/jspdf.umd.min.js']
+    },
+    jszip: {
+      package: 'jszip',
+      version: await readInstalledPackageVersion('jszip'),
+      files: ['tools/vendor/jszip/jszip.min.js']
     },
     ffmpeg: {
       package: '@ffmpeg/ffmpeg',
