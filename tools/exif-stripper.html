@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free EXIF Remover — Strip GPS &amp; Metadata from Photos | No Upload | tools.treble.dev</title>
+    <meta name="description" content="Remove GPS location, device info, and all hidden metadata from photos. Free, private — your images never leave your browser. Strip EXIF from JPEG and PNG instantly.">
+    <meta name="keywords" content="remove exif data online free, strip gps from photo online, remove metadata from image, exif remover no upload, remove location from photo, photo metadata cleaner, strip exif jpeg png, privacy photo tool">
+    <link rel="canonical" href="https://tools.treble.dev/exif-stripper.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Free EXIF Remover — Strip GPS &amp; Metadata from Photos | No Upload">
+    <meta property="og:description" content="Remove GPS, device info, and all hidden metadata from your photos for free. Runs entirely in your browser — nothing is ever uploaded.">
+    <meta property="og:url" content="https://tools.treble.dev/exif-stripper.html">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Free EXIF Remover",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any (Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Remove GPS location, device info, timestamps, and all hidden EXIF metadata from JPEG and PNG photos. Free, private, and entirely browser-local — your images are never uploaded.",
+      "featureList": [
+        "View all EXIF metadata in a human-readable table",
+        "GPS coordinates shown with map link and privacy warning",
+        "Strip all EXIF metadata from JPEG (lossless binary splice, no re-encoding)",
+        "Strip PNG metadata via Canvas re-encode",
+        "Selective stripping by group: Location, Device, Timestamps, Camera",
+        "One-click GPS removal shortcut",
+        "Batch mode: strip up to 10 images and download as a ZIP",
+        "100% private — images never leave your browser"
+      ],
+      "url": "https://tools.treble.dev/exif-stripper.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Remove EXIF Metadata from a Photo",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Drop your image",
+          "text": "Drag and drop a JPEG or PNG image onto the tool, or click to browse your files. Up to 10 images can be loaded for batch processing."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Review the metadata",
+          "text": "The tool displays all detected EXIF tags in a readable table. A warning banner appears if GPS location data is present. Use the field group checkboxes to choose which groups to remove."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Strip and download",
+          "text": "Click 'Strip All & Download' for a single file, 'Strip Selected & Download' for selective removal, or 'Strip All & Download as ZIP' when batch processing multiple files."
+        }
+      ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="exif-stripper/style.css">
+</head>
+<body>
+
+<div class="container">
+    <header class="tool-header">
+        <a href="index.html" class="back-link">&#8592; All Tools</a>
+        <h1>&#128247; EXIF Metadata Remover</h1>
+        <p class="hero-text">
+            View and remove hidden GPS location, device info, and all EXIF metadata from your photos.
+            <strong>100% private. Your images never leave your browser.</strong>
+        </p>
+        <div class="badge-container">
+            <span class="badge">100% Private</span>
+            <span class="badge">No Uploads</span>
+            <span class="badge">Lossless JPEG</span>
+            <span class="badge">Free Forever</span>
+        </div>
+    </header>
+
+    <div class="how-to" aria-label="How to use this tool">
+        <div class="step"><span class="step-num">1</span> Drop image(s)</div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step"><span class="step-num">2</span> Review metadata</div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step"><span class="step-num">3</span> Strip &amp; download</div>
+    </div>
+
+    <!-- Drop Zone -->
+    <label class="file-drop-area" for="file-input" id="drop-zone" aria-label="Image upload area" role="region">
+        <div class="drop-icon" aria-hidden="true">&#128444;</div>
+        <div class="drop-title">Drop JPEG or PNG images here</div>
+        <div class="drop-hint">Click to browse, or drag &amp; drop up to 10 images</div>
+        <input type="file" id="file-input" accept="image/jpeg,image/png" multiple aria-label="Select JPEG or PNG image files">
+    </label>
+
+    <!-- Format Error -->
+    <p id="format-error" class="error-message" role="alert" aria-live="polite"></p>
+
+    <!-- Main Workspace (hidden until files are loaded) -->
+    <div id="workspace" class="workspace exif-workspace">
+
+        <!-- Batch File List (shown when >1 file) -->
+        <div id="batch-panel" class="exif-panel hidden">
+            <h2 class="panel-heading">Loaded Files</h2>
+            <ul id="file-list" class="file-list" aria-label="Loaded image files"></ul>
+            <div class="batch-actions">
+                <button class="btn btn-primary" id="strip-all-zip-btn">&#8659; Strip All &amp; Download as ZIP</button>
+                <button class="btn btn-secondary" id="reset-btn-batch">&#8635; Clear / Reset</button>
+            </div>
+            <div id="batch-progress" class="batch-progress hidden" aria-live="polite" aria-label="Batch processing progress"></div>
+        </div>
+
+        <!-- Detail Panel: GPS Warning + Metadata Table + Actions -->
+        <div id="detail-panel" class="exif-panel">
+
+            <!-- GPS Warning Banner -->
+            <div id="gps-warning" class="gps-warning hidden" role="alert" aria-live="polite">
+                <span class="gps-warning-icon" aria-hidden="true">&#9888;&#65039;</span>
+                <span class="gps-warning-text"><strong>GPS location detected</strong> — this image contains precise location coordinates.</span>
+                <button class="btn btn-warning" id="remove-gps-btn" aria-label="Remove GPS location data only">Remove GPS Only</button>
+            </div>
+
+            <!-- No EXIF Message -->
+            <p id="no-exif-msg" class="no-exif-msg hidden" role="status">No metadata detected in this image.</p>
+
+            <!-- Metadata Table -->
+            <div id="exif-table-wrapper" class="exif-table-wrapper hidden">
+                <h2 class="panel-heading">Detected Metadata</h2>
+                <table id="exif-table" class="exif-table" aria-label="EXIF metadata table">
+                    <thead>
+                        <tr><th scope="col">Field</th><th scope="col">Value</th><th scope="col">Group</th></tr>
+                    </thead>
+                    <tbody id="exif-tbody"></tbody>
+                </table>
+            </div>
+
+            <!-- Field Group Checkboxes (Selective Strip — P2) -->
+            <fieldset id="group-fieldset" class="group-fieldset hidden" aria-label="Select metadata groups to remove">
+                <legend class="group-legend">Choose groups to remove:</legend>
+                <div class="group-checks">
+                    <label class="group-label"><input type="checkbox" id="group-all" checked> All</label>
+                    <label class="group-label"><input type="checkbox" id="group-location" checked> &#128205; Location / GPS</label>
+                    <label class="group-label"><input type="checkbox" id="group-device" checked> &#128241; Device Info</label>
+                    <label class="group-label"><input type="checkbox" id="group-timestamps" checked> &#128337; Timestamps</label>
+                    <label class="group-label"><input type="checkbox" id="group-camera" checked> &#128247; Camera Settings</label>
+                </div>
+            </fieldset>
+
+            <!-- Action Buttons -->
+            <div id="action-bar" class="action-bar hidden">
+                <button class="btn btn-primary" id="strip-all-btn">&#8659; Strip All &amp; Download</button>
+                <button class="btn btn-success" id="strip-selected-btn">&#8659; Strip Selected &amp; Download</button>
+                <button class="btn btn-secondary" id="reset-btn">&#8635; Clear / Reset</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- How to Use Section -->
+    <section class="how-to-section" aria-labelledby="how-to-heading">
+        <h2 id="how-to-heading">How to Remove EXIF Metadata from a Photo</h2>
+        <ol class="how-to-list">
+            <li><strong>Drop your image</strong> — drag and drop one or more JPEG or PNG photos onto the tool, or click the drop zone to browse your files. You can load up to 10 images at once for batch processing.</li>
+            <li><strong>Review the metadata</strong> — a table lists every detected EXIF field with human-readable labels. If your photo contains GPS coordinates, a warning banner appears with a direct map link so you can see exactly what location data is embedded. Use the field group checkboxes to choose which groups to remove: Location / GPS, Device Info, Timestamps, or Camera Settings.</li>
+            <li><strong>Strip and download</strong> — click <em>Strip All &amp; Download</em> to remove every EXIF field, <em>Strip Selected &amp; Download</em> to remove only the checked groups, or <em>Remove GPS Only</em> for a one-click privacy fix. For multiple files, use <em>Strip All &amp; Download as ZIP</em>.</li>
+        </ol>
+        <p class="how-to-note">
+            All processing is done entirely in your browser. Your images are never uploaded to any server.
+            JPEG files are stripped using a lossless binary splice — pixel data is never re-encoded, so there is zero quality loss.
+        </p>
+
+        <h3>Privacy Note</h3>
+        <p class="how-to-note">Modern smartphones automatically embed GPS coordinates, device model, serial number, and timestamps into every photo you take. When you share photos online — on social media, in emails, or in documents — this hidden data can reveal your home address, workplace, or travel history. This tool removes that data before you share.</p>
+    </section>
+</div>
+
+<script src="vendor/jszip/jszip.min.js"></script>
+<script type="module" src="exif-stripper/main.js"></script>
+</body>
+</html>

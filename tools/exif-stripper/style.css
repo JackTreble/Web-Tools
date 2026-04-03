@@ -1,0 +1,420 @@
+/* EXIF Stripper — tool-specific styles */
+
+/* =========================================================
+   Workspace Layout
+   ========================================================= */
+
+.exif-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.exif-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.panel-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* =========================================================
+   GPS Warning Banner
+   ========================================================= */
+
+.gps-warning {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    background: #fff7ed;
+    border: 1.5px solid #fb923c;
+    border-radius: 10px;
+    padding: 0.875rem 1.25rem;
+    margin-bottom: 1.25rem;
+    color: #9a3412;
+    font-size: 0.9rem;
+}
+
+.gps-warning-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.gps-warning-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.btn-warning {
+    background: #ea580c;
+    color: white;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 7px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+
+.btn-warning:hover {
+    background: #c2410c;
+}
+
+/* =========================================================
+   No EXIF Message
+   ========================================================= */
+
+.no-exif-msg {
+    color: var(--text-light);
+    font-style: italic;
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+}
+
+/* =========================================================
+   Metadata Table
+   ========================================================= */
+
+.exif-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+}
+
+.exif-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.exif-table th {
+    background: #f1f5f9;
+    color: var(--text);
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+.exif-table td {
+    padding: 7px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text);
+    vertical-align: top;
+    word-break: break-word;
+}
+
+.exif-table tr:last-child td {
+    border-bottom: none;
+}
+
+.exif-table tr:hover td {
+    background: #f8fafc;
+}
+
+.exif-table a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.exif-table a:hover {
+    text-decoration: underline;
+}
+
+.group-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.group-badge-location  { background: #fee2e2; color: #991b1b; }
+.group-badge-device    { background: #dbeafe; color: #1e40af; }
+.group-badge-timestamps { background: #d1fae5; color: #065f46; }
+.group-badge-camera    { background: #ede9fe; color: #5b21b6; }
+.group-badge-other     { background: #f1f5f9; color: #475569; }
+
+/* =========================================================
+   Field Group Checkboxes (Selective Strip — P2)
+   ========================================================= */
+
+.group-fieldset {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.group-legend {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    padding: 0 6px;
+}
+
+.group-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.group-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+}
+
+.group-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   Action Bar
+   ========================================================= */
+
+.action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* =========================================================
+   Batch File List (P3)
+   ========================================================= */
+
+.file-list {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: var(--surface);
+}
+
+.file-item:hover {
+    background: #f0f6ff;
+    border-color: var(--primary);
+}
+
+.file-item.active {
+    background: #e8f0fe;
+    border-color: var(--primary);
+}
+
+.file-item-name {
+    flex: 1;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.file-item-gps {
+    font-size: 0.78rem;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 8px;
+    padding: 2px 8px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.file-item-gps.no-gps {
+    background: #f1f5f9;
+    color: var(--text-light);
+}
+
+.file-item-tags {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.file-item-status {
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.file-item-status.pending  { color: var(--text-light); }
+.file-item-status.stripped { color: var(--success); }
+.file-item-status.error    { color: var(--danger); }
+
+/* =========================================================
+   Batch Actions + Progress
+   ========================================================= */
+
+.batch-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.batch-progress {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+.batch-progress-bar-wrap {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-top: 0.4rem;
+    overflow: hidden;
+}
+
+.batch-progress-bar {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 3px;
+    transition: width 0.3s;
+}
+
+/* =========================================================
+   Toast Notification
+   ========================================================= */
+
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.toast.visible {
+    opacity: 1;
+}
+
+/* =========================================================
+   How-To Section
+   ========================================================= */
+
+.how-to-section {
+    border-top: 1px solid var(--border);
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.how-to-section h2 {
+    font-size: 1.3rem;
+    margin: 0 0 1rem;
+}
+
+.how-to-section h3 {
+    font-size: 1.05rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.how-to-list {
+    padding-left: 1.5rem;
+    margin: 0 0 1rem;
+    color: var(--text);
+}
+
+.how-to-list li {
+    margin-bottom: 0.65rem;
+    line-height: 1.7;
+}
+
+.how-to-note {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 0.75rem 0;
+    line-height: 1.65;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 640px) {
+    .exif-panel {
+        padding: 1rem;
+    }
+
+    .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-bar .btn,
+    .batch-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .exif-table th:last-child,
+    .exif-table td:last-child {
+        display: none;
+    }
+
+    .group-checks {
+        gap: 0.6rem 1rem;
+    }
+
+    .file-item-tags {
+        display: none;
+    }
+
+    .gps-warning {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
