@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>Free Video to GIF Converter — Trim Video, Export GIF, WebP or MP4 | No Upload | tools.treble.dev</title>
     <meta name="description" content="Convert any video to an animated GIF, WebP, or MP4 clip — entirely in your browser. Set trim points, adjust frame rate and size, then download. No uploads, no watermarks, no accounts. Your video never leaves your device.">
     <meta name="keywords" content="video to gif, free video to gif converter, trim video online free, animated gif maker no upload, video to gif no watermark, convert mp4 to gif browser, free video trimmer no account, video to webp converter">
@@ -10,9 +13,26 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="tools.treble.dev">
     <meta property="og:title" content="Free Video to GIF Converter — Trim Video, Export GIF, WebP or MP4 | No Upload">
     <meta property="og:description" content="Convert any video to an animated GIF, WebP, or MP4 entirely in your browser. No uploads, no watermarks, no accounts — your video never leaves your device.">
     <meta property="og:url" content="https://tools.treble.dev/video-trimmer-gif-exporter.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Video to GIF Converter — Trim Video, Export GIF, WebP or MP4 | No Upload">
+    <meta name="twitter:description" content="Convert any video to an animated GIF, WebP, or MP4 entirely in your browser. No uploads, no watermarks, no accounts — your video never leaves your device.">
+    <meta name="twitter:image" content="https://tools.treble.dev/og-image.png">
+
+    <!-- Open Graph image -->
+    <meta property="og:image" content="https://tools.treble.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="tools.treble.dev — Free. Private. Browser-Based.">
+
+    <!-- PWA / theme -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004aad">
 
     <!-- Shared FFmpeg.wasm vendor asset — single-threaded build (no SharedArrayBuffer / COOP headers required) -->
     <script src="vendor/ffmpeg/ffmpeg.js"></script>
@@ -212,6 +232,25 @@
         </div>
 
     </div><!-- /workspace -->
+
+    <!-- How to Use Section -->
+    <section class="how-to-section" aria-labelledby="how-to-heading">
+        <h2 id="how-to-heading">How to Trim a Video and Export it as a GIF or WebP</h2>
+        <ol class="how-to-list">
+            <li><strong>Load your video</strong> — drag and drop a video file onto the page, or click the file area to select one. The video loads entirely in your browser — MP4, WebM, MOV, and most other browser-playable formats are supported. Nothing is uploaded.</li>
+            <li><strong>Set the trim range</strong> — drag the blue start handle and the purple end handle on the timeline strip to define the exact clip you want to keep. The video preview loops within your selection so you can review it before exporting.</li>
+            <li><strong>Choose a format and process</strong> — select GIF, WebP, or MP4 from the format picker. Adjust optional settings such as FPS and maximum width for GIF/WebP output, then click <em>Process</em>. The clip is encoded in your browser using FFmpeg compiled to WebAssembly.</li>
+            <li><strong>Download your file</strong> — click the <em>Download</em> button to save the output directly to your device.</li>
+        </ol>
+        <p class="how-to-note">All video processing happens entirely in your browser — your video file never leaves your device. GIF output uses a two-pass palette encoding for the best quality at the smallest file size. MP4 uses stream-copy (no re-encode) for instant output with no quality loss.</p>
+
+        <h3>Which format should I choose?</h3>
+        <ul class="template-list">
+            <li><strong>GIF</strong> — widest compatibility; works everywhere including older email clients and messaging apps.</li>
+            <li><strong>WebP</strong> — smaller file size than GIF with better color depth; supported in all modern browsers and most apps.</li>
+            <li><strong>MP4</strong> — highest quality; ideal when the destination supports video playback. Uses stream-copy so there is no quality loss and the export is near-instant.</li>
+        </ul>
+    </section>
 
 </div><!-- /container -->
 

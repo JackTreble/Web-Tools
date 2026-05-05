@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>Print Without Black Ink — Free PDF Color Converter | tools.treble.dev</title>
     <meta name="description" content="Out of black ink? Convert your PDF so it prints using only color ink cartridges. Choose deep blue, green, or violet as your substitute. 100% free, browser-based — no uploads, no accounts.">
     <meta name="keywords" content="print without black ink, convert pdf to color, out of black ink print, empty black cartridge, print pdf without black, pdf color converter free">
@@ -10,9 +13,26 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="tools.treble.dev">
     <meta property="og:title" content="Print Without Black Ink — Free PDF Color Converter">
     <meta property="og:description" content="Out of black ink? Convert your PDF to print using only color cartridges — free, private, no uploads. Everything runs in your browser.">
     <meta property="og:url" content="https://tools.treble.dev/print-without-black.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Print Without Black Ink — Free PDF Color Converter">
+    <meta name="twitter:description" content="Out of black ink? Convert your PDF to print using only color cartridges — free, private, no uploads. Everything runs in your browser.">
+    <meta name="twitter:image" content="https://tools.treble.dev/og-image.png">
+
+    <!-- Open Graph image -->
+    <meta property="og:image" content="https://tools.treble.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="tools.treble.dev — Free. Private. Browser-Based.">
+
+    <!-- PWA / theme -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004aad">
 
     <script src="vendor/pdfjs/pdf.min.js"></script>
     <script src="vendor/jspdf/jspdf.umd.min.js"></script>
@@ -51,15 +71,21 @@
           "step": [
             {
               "@type": "HowToStep",
-              "text": "Upload your black and white PDF to the tool."
+              "position": 1,
+              "name": "Open your PDF",
+              "text": "Select your black and white PDF using the file picker. The file is loaded entirely in your browser — nothing is uploaded."
             },
             {
               "@type": "HowToStep",
+              "position": 2,
+              "name": "Choose a replacement color",
               "text": "Select a dark blue or dark grey color to replace the black ink channel."
             },
             {
               "@type": "HowToStep",
-              "text": "Download the processed PDF and print using the 'Color' setting."
+              "position": 3,
+              "name": "Download and print",
+              "text": "Download the processed PDF and print using the 'Color' setting on your printer."
             }
           ]
         }
@@ -153,7 +179,7 @@
     </div>
 
     <!-- How to Use Section -->
-    <section class="how-to-section" aria-labelledby="how-to-heading" style="margin-top: 2.5rem;">
+    <section class="how-to-section" aria-labelledby="how-to-heading">
         <h2 id="how-to-heading">How to Print a PDF When You Are Out of Black Ink</h2>
         <ol class="how-to-list">
             <li><strong>Select your PDF</strong> — click the file input and choose the PDF you want to print. The file is loaded entirely in your browser; nothing is uploaded.</li>

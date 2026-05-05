@@ -10,10 +10,11 @@
     "@ffmpeg/core": "0.12.6",
     "@ffmpeg/ffmpeg": "0.12.6",
     "esbuild": "0.25.2",
-    "jszip": "3.10.1",
     "jspdf": "2.5.1",
+    "jszip": "3.10.1",
     "pdf-lib": "1.17.1",
     "pdfjs-dist": "3.11.174",
-    "qrcode": "1.5.4"
+    "qrcode": "1.5.4",
+    "sharp": "^0.34.5"
   }
 }

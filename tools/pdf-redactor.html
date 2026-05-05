@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>Redact PDF Free — Permanently Black Out Text &amp; Images | No Upload | tools.treble.dev</title>
     <meta name="description" content="Permanently black out sensitive text, images, and personal information in any PDF — entirely in your browser. No uploads, no accounts. The exported PDF has no hidden or recoverable text. 100% free.">
     <meta name="keywords" content="redact pdf free, pdf redactor online, black out pdf text, permanently redact pdf, no upload pdf redactor, free pdf redaction tool, remove sensitive information pdf">
@@ -10,9 +13,26 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="tools.treble.dev">
     <meta property="og:title" content="Redact PDF Free — Permanently Black Out Text &amp; Images | No Upload">
     <meta property="og:description" content="Permanently remove sensitive content from PDFs in your browser. No uploads, no accounts. Redacted pages contain no hidden text — nothing is recoverable.">
     <meta property="og:url" content="https://tools.treble.dev/pdf-redactor.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Redact PDF Free — Permanently Black Out Text &amp; Images | No Upload">
+    <meta name="twitter:description" content="Permanently remove sensitive content from PDFs in your browser. No uploads, no accounts. Redacted pages contain no hidden text — nothing is recoverable.">
+    <meta name="twitter:image" content="https://tools.treble.dev/og-image.png">
+
+    <!-- Open Graph image -->
+    <meta property="og:image" content="https://tools.treble.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="tools.treble.dev — Free. Private. Browser-Based.">
+
+    <!-- PWA / theme -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004aad">
 
     <!-- Shared local vendor assets -->
     <script src="vendor/pdfjs/pdf.min.js"></script>
@@ -67,6 +87,47 @@
                 "text": "Click 'Download Redacted PDF'. The tool exports a new PDF where every redacted page is a raster image — no text, metadata, or hidden layers remain."
             }
         ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this tool upload my PDF to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The PDF Redactor runs entirely in your browser using PDF.js and pdf-lib. Your document is never sent to any server — it never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the redaction permanent? Can the original text be recovered?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the redaction is permanent. Every page that contains a redaction box is exported as a raster image. Because there is no underlying text layer in the output file, the original content cannot be recovered by any means — including copy-paste, screen readers, or PDF text extraction tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the redacted PDF have a smaller or larger file size?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Redacted pages are converted to JPEG images inside the PDF, so the file size may be larger than the original, especially for text-heavy documents. You can adjust the render quality in the tool to balance file size against sharpness."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I redact images and photos as well as text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can draw a black redaction box over any area of any page — text, images, signatures, or any other content. The entire region under the box is permanently replaced in the exported PDF."
+          }
+        }
+      ]
     }
     </script>
 
@@ -142,6 +203,20 @@
         </div>
 
     </div><!-- /workspace -->
+
+    <!-- How to Use Section -->
+    <section class="how-to-section" aria-labelledby="how-to-heading">
+        <h2 id="how-to-heading">How to Redact a PDF in Your Browser</h2>
+        <ol class="how-to-list">
+            <li><strong>Open your PDF</strong> — click the file area or drag and drop your PDF onto the page. The document loads entirely in your browser; nothing is uploaded to any server.</li>
+            <li><strong>Draw redaction boxes</strong> — click and drag over any sensitive text, image, or area on the page to draw a solid black rectangle. Navigate between pages and repeat for every page that contains content you want to remove.</li>
+            <li><strong>Download the redacted PDF</strong> — click <em>Download Redacted PDF</em>. Every redacted page is exported as a raster image — no underlying text, metadata, or hidden layers remain in the output file.</li>
+        </ol>
+        <p class="how-to-note">All processing happens entirely in your browser. Your PDF is never sent to any server. Because redacted pages are converted to images, there is no way to recover the original content.</p>
+
+        <h3>Why use a browser-based PDF redactor?</h3>
+        <p class="how-to-note">Most PDF redaction tools require you to upload your document to a cloud service. This tool does the opposite — everything runs locally using PDF.js and pdf-lib, so sensitive documents never leave your device. There are no accounts, no subscriptions, and no file-size limits.</p>
+    </section>
 </div><!-- /container -->
 
 <script src="pdf-redactor/main.js"></script>

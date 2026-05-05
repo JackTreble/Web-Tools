@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /aquarium.html
+Disallow: /mandelbrot.html
 
 Sitemap: https://tools.treble.dev/sitemap.xml
