@@ -1,0 +1,22 @@
+{
+  "name": "tools.treble.dev",
+  "short_name": "treble tools",
+  "description": "Free, private browser-based tools for everyday tasks — PDF, QR, video, privacy utilities.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6fa",
+  "theme_color": "#004aad",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

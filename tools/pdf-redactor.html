@@ -19,9 +19,20 @@
     <meta property="og:url" content="https://tools.treble.dev/pdf-redactor.html">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Redact PDF Free — Permanently Black Out Text &amp; Images | No Upload">
     <meta name="twitter:description" content="Permanently remove sensitive content from PDFs in your browser. No uploads, no accounts. Redacted pages contain no hidden text — nothing is recoverable.">
+    <meta name="twitter:image" content="https://tools.treble.dev/og-image.png">
+
+    <!-- Open Graph image -->
+    <meta property="og:image" content="https://tools.treble.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="tools.treble.dev — Free. Private. Browser-Based.">
+
+    <!-- PWA / theme -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004aad">
 
     <!-- Shared local vendor assets -->
     <script src="vendor/pdfjs/pdf.min.js"></script>
@@ -76,6 +87,47 @@
                 "text": "Click 'Download Redacted PDF'. The tool exports a new PDF where every redacted page is a raster image — no text, metadata, or hidden layers remain."
             }
         ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this tool upload my PDF to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The PDF Redactor runs entirely in your browser using PDF.js and pdf-lib. Your document is never sent to any server — it never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the redaction permanent? Can the original text be recovered?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the redaction is permanent. Every page that contains a redaction box is exported as a raster image. Because there is no underlying text layer in the output file, the original content cannot be recovered by any means — including copy-paste, screen readers, or PDF text extraction tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the redacted PDF have a smaller or larger file size?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Redacted pages are converted to JPEG images inside the PDF, so the file size may be larger than the original, especially for text-heavy documents. You can adjust the render quality in the tool to balance file size against sharpness."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I redact images and photos as well as text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can draw a black redaction box over any area of any page — text, images, signatures, or any other content. The entire region under the box is permanently replaced in the exported PDF."
+          }
+        }
+      ]
     }
     </script>
 

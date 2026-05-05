@@ -19,9 +19,20 @@
     <meta property="og:url" content="https://tools.treble.dev/exif-stripper.html">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Free EXIF Remover — Strip GPS &amp; Metadata from Photos | No Upload">
     <meta name="twitter:description" content="Remove GPS, device info, and all hidden metadata from your photos for free. Runs entirely in your browser — nothing is ever uploaded.">
+    <meta name="twitter:image" content="https://tools.treble.dev/og-image.png">
+
+    <!-- Open Graph image -->
+    <meta property="og:image" content="https://tools.treble.dev/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="tools.treble.dev — Free. Private. Browser-Based.">
+
+    <!-- PWA / theme -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004aad">
 
     <script type="application/ld+json">
     {
@@ -72,6 +83,47 @@
           "position": 3,
           "name": "Strip and download",
           "text": "Click 'Strip All & Download' for a single file, 'Strip Selected & Download' for selective removal, or 'Strip All & Download as ZIP' when batch processing multiple files."
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this tool upload my photos to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All processing happens entirely in your browser. Your images are never sent to any server — they never leave your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does removing EXIF data affect image quality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For JPEG files, no. The tool uses a lossless binary splice to remove metadata — pixel data is never re-encoded, so there is absolutely zero quality loss. PNG files are re-encoded via the browser Canvas API, which may have a very minor effect on file size but not visible quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What information is stored in EXIF metadata?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "EXIF metadata can include GPS coordinates (precise latitude and longitude), the make and model of your device, the date and time the photo was taken, camera settings such as aperture and shutter speed, and sometimes software version information. This data is embedded silently by smartphones and cameras."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I remove only GPS data and keep the rest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Use the 'Remove GPS Only' button for a one-click privacy fix that strips only the location data, or use the group checkboxes to choose exactly which metadata categories to remove."
+          }
         }
       ]
     }
